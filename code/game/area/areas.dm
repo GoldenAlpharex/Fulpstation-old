@@ -498,12 +498,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /**
   * Called when the area power status changes
   *
-  * Updates the area icon, calls power change on all machinees in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
+  * Updates the area icon and calls power change on all machinees in the area
   */
 /area/proc/power_change()
 	for(var/obj/machinery/M in src)	// for each machine in the area
 		M.power_change()				// reverify power status (to update icons etc.)
-	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
 	update_icon()
 
 

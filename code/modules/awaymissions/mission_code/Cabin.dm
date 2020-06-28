@@ -112,46 +112,46 @@
 	speak = list()
 
 /*Cabin's forest. Removed in the new cabin map since it was buggy and I prefer manual placement.*/
-/datum/map_generator/snowy
-	modules = list(/datum/map_generator_module/bottomlayer/snow, \
-	/datum/map_generator_module/snow/pine_trees, \
-	/datum/map_generator_module/snow/dead_trees, \
-	/datum/map_generator_module/snow/rand_bushes, \
-	/datum/map_generator_module/snow/rand_ice_rocks, \
-	/datum/map_generator_module/snow/bunnies)
+/datum/mapGenerator/snowy
+	modules = list(/datum/mapGeneratorModule/bottomlayer/snow, \
+	/datum/mapGeneratorModule/snow/pineTrees, \
+	/datum/mapGeneratorModule/snow/deadTrees, \
+	/datum/mapGeneratorModule/snow/randBushes, \
+	/datum/mapGeneratorModule/snow/randIceRocks, \
+	/datum/mapGeneratorModule/snow/bunnies)
 
-/datum/map_generator_module/snow/checkPlaceAtom(turf/T)
+/datum/mapGeneratorModule/snow/checkPlaceAtom(turf/T)
 	if(istype(T, /turf/open/floor/plating/asteroid/snow))
 		return ..(T)
 	return 0
 
-/datum/map_generator_module/bottomlayer/snow
+/datum/mapGeneratorModule/bottomlayer/snow
 	spawnableTurfs = list(/turf/open/floor/plating/asteroid/snow/atmosphere = 100)
 
-/datum/map_generator_module/snow/pine_trees
+/datum/mapGeneratorModule/snow/pineTrees
 	spawnableAtoms = list(/obj/structure/flora/tree/pine = 30)
 
-/datum/map_generator_module/snow/dead_trees
+/datum/mapGeneratorModule/snow/deadTrees
 	spawnableAtoms = list(/obj/structure/flora/tree/dead = 10)
 
-/datum/map_generator_module/snow/rand_bushes
+/datum/mapGeneratorModule/snow/randBushes
 	spawnableAtoms = list()
 
-/datum/map_generator_module/snow/rand_bushes/New()
+/datum/mapGeneratorModule/snow/randBushes/New()
 	..()
 	spawnableAtoms = typesof(/obj/structure/flora/ausbushes)
 	for(var/i in spawnableAtoms)
 		spawnableAtoms[i] = 1
 
-/datum/map_generator_module/snow/bunnies
+/datum/mapGeneratorModule/snow/bunnies
 	//spawnableAtoms = list(/mob/living/simple_animal/chicken/rabbit/normal = 0.1)
 	spawnableAtoms = list(/mob/living/simple_animal/chicken/rabbit = 0.5)
 
-/datum/map_generator_module/snow/rand_ice_rocks
+/datum/mapGeneratorModule/snow/randIceRocks
 	spawnableAtoms = list(/obj/structure/flora/rock/icy = 5, /obj/structure/flora/rock/pile/icy = 5)
 
-/obj/effect/landmark/map_generator/snowy
-	mapGeneratorType = /datum/map_generator/snowy
+/obj/effect/landmark/mapGenerator/snowy
+	mapGeneratorType = /datum/mapGenerator/snowy
 	endTurfX = 159
 	endTurfY = 157
 	startTurfX = 37

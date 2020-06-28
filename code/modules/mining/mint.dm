@@ -36,8 +36,6 @@
 
 
 /obj/machinery/mineral/mint/pickup_item(datum/source, atom/movable/target, atom/oldLoc)
-	if(QDELETED(target))
-		return
 	if(!istype(target, /obj/item/stack))
 		return
 

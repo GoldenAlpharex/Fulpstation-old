@@ -77,7 +77,6 @@ export const BiogeneratorContent = (props, context) => {
         <Fragment>
           Search
           <Input
-            autoFocus
             value={searchText}
             onInput={(e, value) => setSearchText(value)}
             mx={1} />

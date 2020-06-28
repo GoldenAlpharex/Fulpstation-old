@@ -24,7 +24,7 @@
 	go_invisible()
 
 
-/obj/structure/closet/cardboard/agent/open(mob/living/user, force = FALSE)
+/obj/structure/closet/cardboard/agent/open()
 	. = ..()
 	qdel(src)
 

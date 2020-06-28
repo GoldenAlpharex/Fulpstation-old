@@ -300,9 +300,7 @@
 		else if(istype(I, /obj/item/bikehorn))
 			to_chat(target, "<span class='userdanger'>HONK</span>")
 			SEND_SOUND(target, 'sound/items/airhorn.ogg')
-			var/obj/item/organ/ears/ears = user.getorganslot(ORGAN_SLOT_EARS)
-			if(ears)
-				ears.adjustEarDamage(0, 3)
+			target.adjustEarDamage(0,3)
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
 		return

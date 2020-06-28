@@ -15,7 +15,7 @@
 	desc = "Allows for the construction of a Safeguard AI Module."
 	id = "safeguard_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/gold = 2000, /datum/material/bluespace = 1000)
-	build_path = /obj/item/ai_module/supplied/safeguard
+	build_path = /obj/item/aiModule/supplied/safeguard
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -24,7 +24,7 @@
 	desc = "Allows for the construction of a OneHuman AI Module."
 	id = "onehuman_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/diamond = 6000, /datum/material/bluespace = 1000)
-	build_path = /obj/item/ai_module/zeroth/onehuman
+	build_path = /obj/item/aiModule/zeroth/oneHuman
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -33,7 +33,7 @@
 	desc = "Allows for the construction of a ProtectStation AI Module."
 	id = "protectstation_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/gold = 2000, /datum/material/bluespace = 1000)
-	build_path = /obj/item/ai_module/supplied/protect_station
+	build_path = /obj/item/aiModule/supplied/protectStation
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -42,7 +42,7 @@
 	desc = "Allows for the construction of a Quarantine AI Module."
 	id = "quarantine_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/gold = 2000, /datum/material/bluespace = 1000)
-	build_path = /obj/item/ai_module/supplied/quarantine
+	build_path = /obj/item/aiModule/supplied/quarantine
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -51,7 +51,7 @@
 	desc = "Allows for the construction of a Safeguard AI Module."
 	id = "oxygen_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/gold = 2000, /datum/material/bluespace = 1000)
-	build_path = /obj/item/ai_module/supplied/oxygen
+	build_path = /obj/item/aiModule/supplied/oxygen
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -60,7 +60,7 @@
 	desc = "Allows for the construction of a Freeform AI Module."
 	id = "freeform_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/gold = 10000, /datum/material/bluespace = 2000)//Custom inputs should be more expensive to get
-	build_path = /obj/item/ai_module/supplied/freeform
+	build_path = /obj/item/aiModule/supplied/freeform
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -69,7 +69,7 @@
 	desc = "Allows for the construction of a Reset AI Module."
 	id = "reset_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/gold = 2000)
-	build_path = /obj/item/ai_module/reset
+	build_path = /obj/item/aiModule/reset
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -78,7 +78,7 @@
 	desc = "Allows for the construction of a Purge AI Module."
 	id = "purge_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/diamond = 2000, /datum/material/bluespace = 1000)
-	build_path = /obj/item/ai_module/reset/purge
+	build_path = /obj/item/aiModule/reset/purge
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -87,7 +87,7 @@
 	desc = "Allows for the construction of a Law Removal AI Core Module."
 	id = "remove_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/diamond = 2000, /datum/material/bluespace = 1000)
-	build_path = /obj/item/ai_module/remove
+	build_path = /obj/item/aiModule/remove
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -96,7 +96,7 @@
 	desc = "Allows for the construction of a Freeform AI Core Module."
 	id = "freeformcore_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/diamond = 10000, /datum/material/bluespace = 2000)//Ditto
-	build_path = /obj/item/ai_module/core/freeformcore
+	build_path = /obj/item/aiModule/core/freeformcore
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -105,7 +105,7 @@
 	desc = "Allows for the construction of an Asimov AI Core Module."
 	id = "asimov_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/diamond = 2000, /datum/material/bluespace = 1000)
-	build_path = /obj/item/ai_module/core/full/asimov
+	build_path = /obj/item/aiModule/core/full/asimov
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -115,7 +115,7 @@
 	id = "paladin_module"
 	build_type = IMPRINTER
 	materials = list(/datum/material/glass = 1000, /datum/material/diamond = 2000, /datum/material/bluespace = 1000)
-	build_path = /obj/item/ai_module/core/full/paladin
+	build_path = /obj/item/aiModule/core/full/paladin
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -124,7 +124,7 @@
 	desc = "Allows for the construction of a T.Y.R.A.N.T. AI Module."
 	id = "tyrant_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/diamond = 2000, /datum/material/bluespace = 1000)
-	build_path = /obj/item/ai_module/core/full/tyrant
+	build_path = /obj/item/aiModule/core/full/tyrant
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -133,7 +133,7 @@
 	desc = "Allows for the construction of an Overlord AI Module."
 	id = "overlord_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/diamond = 2000, /datum/material/bluespace = 1000)
-	build_path = /obj/item/ai_module/core/full/overlord
+	build_path = /obj/item/aiModule/core/full/overlord
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -142,7 +142,7 @@
 	desc = "Allows for the construction of a Corporate AI Core Module."
 	id = "corporate_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/diamond = 2000, /datum/material/bluespace = 1000)
-	build_path = /obj/item/ai_module/core/full/corp
+	build_path = /obj/item/aiModule/core/full/corp
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -151,6 +151,6 @@
 	desc = "Allows for the construction of a Default AI Core Module."
 	id = "default_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/diamond = 2000, /datum/material/bluespace = 1000)
-	build_path = /obj/item/ai_module/core/full/custom
+	build_path = /obj/item/aiModule/core/full/custom
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE

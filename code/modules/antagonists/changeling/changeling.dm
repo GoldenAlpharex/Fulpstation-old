@@ -34,8 +34,6 @@
 	var/isabsorbing = 0
 	var/islinking = 0
 	var/geneticpoints = 10
-	var/total_geneticspoints = 10
-	var/total_chem_storage = 75
 	var/purchasedpowers = list()
 
 	var/mimicing = ""
@@ -109,9 +107,9 @@
 /datum/antagonist/changeling/proc/reset_properties()
 	changeling_speak = 0
 	chosen_sting = null
-	geneticpoints = total_geneticspoints
+	geneticpoints = initial(geneticpoints)
 	sting_range = initial(sting_range)
-	chem_storage = total_chem_storage
+	chem_storage = initial(chem_storage)
 	chem_recharge_rate = initial(chem_recharge_rate)
 	chem_charges = min(chem_charges, chem_storage)
 	chem_recharge_slowdown = initial(chem_recharge_slowdown)
@@ -300,11 +298,8 @@
 			prof.name_list[slot] = I.name
 			prof.appearance_list[slot] = I.appearance
 			prof.flags_cover_list[slot] = I.flags_cover
-			prof.lefthand_file_list[slot] = I.lefthand_file
-			prof.righthand_file_list[slot] = I.righthand_file
 			prof.inhand_icon_state_list[slot] = I.inhand_icon_state
 			prof.worn_icon_list[slot] = I.worn_icon
-			prof.worn_icon_state_list[slot] = I.worn_icon_state
 			prof.exists_list[slot] = 1
 		else
 			continue
@@ -514,11 +509,8 @@
 	var/list/appearance_list = list()
 	var/list/flags_cover_list = list()
 	var/list/exists_list = list()
-	var/list/lefthand_file_list = list()
-	var/list/righthand_file_list = list()
 	var/list/inhand_icon_state_list = list()
 	var/list/worn_icon_list = list()
-	var/list/worn_icon_state_list = list()
 
 	var/underwear
 	var/undershirt
@@ -537,14 +529,11 @@
 	newprofile.appearance_list = appearance_list.Copy()
 	newprofile.flags_cover_list = flags_cover_list.Copy()
 	newprofile.exists_list = exists_list.Copy()
-	newprofile.lefthand_file_list = lefthand_file_list.Copy()
-	newprofile.righthand_file_list = righthand_file_list.Copy()
 	newprofile.inhand_icon_state_list = inhand_icon_state_list.Copy()
 	newprofile.underwear = underwear
 	newprofile.undershirt = undershirt
 	newprofile.socks = socks
 	newprofile.worn_icon_list = worn_icon_list.Copy()
-	newprofile.worn_icon_state_list = worn_icon_state_list.Copy()
 
 
 /datum/antagonist/changeling/xenobio

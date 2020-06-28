@@ -2,8 +2,7 @@
 	"templates": [
 		{
 			"template": "default",
-			"icon": "icons/runtime/tcg/xenos.dmi",
-			"series": "resinfront"
+			"icon": "icons/obj/tcg_xenos.dmi"
 		}
 	],
 	"cards": [
@@ -19,6 +18,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon Xenomorph",
+			"series": "resinfront",
 			"rarity": "epic"
 		},
 		{
@@ -33,6 +33,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "common"
 		},
 		{
@@ -47,6 +48,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "common"
 		},
 		{
@@ -61,6 +63,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "uncommon"
 		},
 		{
@@ -75,6 +78,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "uncommon"
 		},
 		{
@@ -89,6 +93,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "common"
 		},
 		{
@@ -103,6 +108,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "rare"
 		},
 		{
@@ -117,6 +123,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "rare"
 		},
 		{
@@ -131,6 +138,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "rare"
 		},
 		{
@@ -145,6 +153,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "rare"
 		},
 		{
@@ -159,6 +168,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "rare"
 		},
 		{
@@ -173,6 +183,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "common"
 		},
 		{
@@ -187,6 +198,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "uncommon"
 		},
 		{
@@ -201,6 +213,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "resinfront",
 			"rarity": "epic"
 		},
 		{
@@ -215,6 +228,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "uncommon"
 		},
 		{
@@ -229,6 +243,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "rare"
 		},
 		{
@@ -243,6 +258,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph Soldier",
+			"series": "resinfront",
 			"rarity": "legendary"
 		},
 		{
@@ -257,6 +273,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "rare"
 		},
 		{
@@ -271,6 +288,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "uncommon"
 		},
 		{
@@ -285,6 +303,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "uncommon"
 		},
 		{
@@ -299,6 +318,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "epic"
 		},
 		{
@@ -313,6 +333,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "resinfront",
 			"rarity": "common"
 		}
 	]

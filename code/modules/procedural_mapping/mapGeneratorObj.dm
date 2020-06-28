@@ -1,14 +1,14 @@
-/obj/effect/landmark/map_generator
+/obj/effect/landmark/mapGenerator
 	var/startTurfX = 0
 	var/startTurfY = 0
 	var/startTurfZ = -1
 	var/endTurfX = 0
 	var/endTurfY = 0
 	var/endTurfZ = -1
-	var/mapGeneratorType = /datum/map_generator/nature
-	var/datum/map_generator/mapGenerator
+	var/mapGeneratorType = /datum/mapGenerator/nature
+	var/datum/mapGenerator/mapGenerator
 
-/obj/effect/landmark/map_generator/New()
+/obj/effect/landmark/mapGenerator/New()
 	..()
 	if(startTurfZ < 0)
 		startTurfZ = z

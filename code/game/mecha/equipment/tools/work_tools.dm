@@ -230,9 +230,9 @@
 						if(!W)
 							return
 						var/turf/W_turf = get_turf(W)
-						W.reagents.expose(W_turf)
+						W.reagents.reaction(W_turf)
 						for(var/atom/atm in W_turf)
-							W.reagents.expose(atm)
+							W.reagents.reaction(atm)
 						if(W.loc == my_target)
 							break
 						sleep(2)

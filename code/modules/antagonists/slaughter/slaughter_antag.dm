@@ -5,7 +5,6 @@
 	var/datum/mind/summoner
 	job_rank = ROLE_ALIEN
 	show_in_antagpanel = FALSE
-	show_to_ghosts = TRUE
 
 /datum/antagonist/slaughter/on_gain()
 	forge_objectives()
@@ -14,7 +13,6 @@
 /datum/antagonist/slaughter/greet()
 	. = ..()
 	owner.announce_objectives()
-	to_chat(owner, "<span class='warning'>You have a powerful alt-attack that slams people backwards that you can activate by shift+ctrl+clicking your target!</span>")
 
 /datum/antagonist/slaughter/proc/forge_objectives()
 	if(summoner)

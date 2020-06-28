@@ -16,12 +16,12 @@
 	healths.hud = src
 	infodisplay += healths
 
-	using = new /obj/screen/guardian/manifest()
+	using = new /obj/screen/guardian/Manifest()
 	using.screen_loc = ui_hand_position(2)
 	using.hud = src
 	static_inventory += using
 
-	using = new /obj/screen/guardian/recall()
+	using = new /obj/screen/guardian/Recall()
 	using.screen_loc = ui_hand_position(1)
 	using.hud = src
 	static_inventory += using
@@ -31,12 +31,12 @@
 	using.hud = src
 	static_inventory += using
 
-	using = new /obj/screen/guardian/toggle_light()
+	using = new /obj/screen/guardian/ToggleLight()
 	using.screen_loc = ui_inventory
 	using.hud = src
 	static_inventory += using
 
-	using = new /obj/screen/guardian/communicate()
+	using = new /obj/screen/guardian/Communicate()
 	using.screen_loc = ui_back
 	using.hud = src
 	static_inventory += using
@@ -56,14 +56,14 @@
 		inv_box.hud = src
 		static_inventory += inv_box
 
-		using = new /obj/screen/guardian/communicate()
+		using = new /obj/screen/guardian/Communicate()
 		using.screen_loc = ui_sstore1
 		using.hud = src
 		static_inventory += using
 
 	else
 
-		using = new /obj/screen/guardian/communicate()
+		using = new /obj/screen/guardian/Communicate()
 		using.screen_loc = ui_id
 		using.hud = src
 		static_inventory += using
@@ -79,12 +79,12 @@
 	healths.hud = src
 	infodisplay += healths
 
-	using = new /obj/screen/guardian/manifest()
+	using = new /obj/screen/guardian/Manifest()
 	using.screen_loc = ui_belt
 	using.hud = src
 	static_inventory += using
 
-	using = new /obj/screen/guardian/recall()
+	using = new /obj/screen/guardian/Recall()
 	using.screen_loc = ui_back
 	using.hud = src
 	static_inventory += using
@@ -94,7 +94,7 @@
 	using.hud = src
 	static_inventory += using
 
-	using = new /obj/screen/guardian/toggle_light()
+	using = new /obj/screen/guardian/ToggleLight()
 	using.screen_loc = ui_inventory
 	using.hud = src
 	static_inventory += using
@@ -118,62 +118,62 @@
 /obj/screen/guardian
 	icon = 'icons/mob/guardian.dmi'
 
-/obj/screen/guardian/manifest
+/obj/screen/guardian/Manifest
 	icon_state = "manifest"
 	name = "Manifest"
 	desc = "Spring forth into battle!"
 
-/obj/screen/guardian/manifest/Click()
+/obj/screen/guardian/Manifest/Click()
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		G.Manifest()
 
 
-/obj/screen/guardian/recall
+/obj/screen/guardian/Recall
 	icon_state = "recall"
 	name = "Recall"
 	desc = "Return to your user."
 
-/obj/screen/guardian/recall/Click()
+/obj/screen/guardian/Recall/Click()
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		G.Recall()
 
-/obj/screen/guardian/toggle_mode
+/obj/screen/guardian/ToggleMode
 	icon_state = "toggle"
 	name = "Toggle Mode"
 	desc = "Switch between ability modes."
 
-/obj/screen/guardian/toggle_mode/Click()
+/obj/screen/guardian/ToggleMode/Click()
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		G.ToggleMode()
 
-/obj/screen/guardian/toggle_mode/inactive
+/obj/screen/guardian/ToggleMode/Inactive
 	icon_state = "notoggle" //greyed out so it doesn't look like it'll work
 
-/obj/screen/guardian/toggle_mode/assassin
+/obj/screen/guardian/ToggleMode/Assassin
 	icon_state = "stealth"
 	name = "Toggle Stealth"
 	desc = "Enter or exit stealth."
 
-/obj/screen/guardian/communicate
+/obj/screen/guardian/Communicate
 	icon_state = "communicate"
 	name = "Communicate"
 	desc = "Communicate telepathically with your user."
 
-/obj/screen/guardian/communicate/Click()
+/obj/screen/guardian/Communicate/Click()
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		G.Communicate()
 
 
-/obj/screen/guardian/toggle_light
+/obj/screen/guardian/ToggleLight
 	icon_state = "light"
 	name = "Toggle Light"
 	desc = "Glow like star dust."
 
-/obj/screen/guardian/toggle_light/Click()
+/obj/screen/guardian/ToggleLight/Click()
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		G.ToggleLight()

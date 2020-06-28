@@ -2,7 +2,6 @@
 	name = "Revenant"
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
-	show_to_ghosts = TRUE
 
 /datum/antagonist/revenant/greet()
 	owner.announce_objectives()
@@ -11,7 +10,7 @@
 	var/datum/objective/revenant/objective = new
 	objective.owner = owner
 	objectives += objective
-	var/datum/objective/revenant_fluff/objective2 = new
+	var/datum/objective/revenantFluff/objective2 = new
 	objective2.owner = owner
 	objectives += objective2
 

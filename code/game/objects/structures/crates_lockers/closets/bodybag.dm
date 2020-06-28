@@ -54,7 +54,7 @@
 	if(tagged)
 		. += "bodybag_label"
 
-/obj/structure/closet/body_bag/open(mob/living/user, force = FALSE)
+/obj/structure/closet/body_bag/open(mob/living/user)
 	. = ..()
 	if(.)
 		mouse_drag_pointer = MOUSE_INACTIVE_POINTER

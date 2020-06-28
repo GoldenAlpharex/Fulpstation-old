@@ -103,20 +103,15 @@
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/reopen_roundstart_suicide_roles), delay)
 
 	if(SSdbcore.Connect())
-		var/list/to_set = list()
-		var/arguments = list()
+		var/sql
 		if(SSticker.mode)
-			to_set += "game_mode = :game_mode"
-			arguments["game_mode"] = SSticker.mode
+			sql += "game_mode = '[SSticker.mode]'"
 		if(GLOB.revdata.originmastercommit)
-			to_set += "commit_hash = :commit_hash"
-			arguments["commit_hash"] = GLOB.revdata.originmastercommit
-		if(to_set.len)
-			arguments["round_id"] = GLOB.round_id
-			var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery(
-				"UPDATE [format_table_name("round")] SET [to_set.Join(", ")] WHERE id = :round_id",
-				arguments
-			)
+			if(sql)
+				sql += ", "
+			sql += "commit_hash = '[GLOB.revdata.originmastercommit]'"
+		if(sql)
+			var/datum/DBQuery/query_round_game_mode = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET [sql] WHERE id = [GLOB.round_id]")
 			query_round_game_mode.Execute()
 			qdel(query_round_game_mode)
 	if(report)
@@ -274,6 +269,9 @@
 
 	return 0
 
+
+/datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
+	return 0
 
 /datum/game_mode/proc/send_intercept()
 	var/intercepttext = "<b><i>Central Command Status Summary</i></b><hr>"

@@ -17,26 +17,18 @@
 		return
 
 /obj/item/bot_assembly/proc/rename_bot()
-	var/t = sanitize_name(stripped_input(usr, "Enter new robot name", name, created_name,MAX_NAME_LEN), allow_numbers = TRUE)
+	var/t = sanitize_name(stripped_input(usr, "Enter new robot name", name, created_name,MAX_NAME_LEN))
 	if(!t)
 		return
 	if(!in_range(src, usr) && loc != usr)
 		return
 	created_name = t
 
-/**
-  * Checks if the user can finish constructing a bot with a given item.
-  *
-  * Arguments:
-  * * I - Item to be used
-  * * user - Mob doing the construction
-  * * drop_item - Whether or no the item should be dropped; defaults to 1. Should be set to 0 if the item is a tool, stack, or otherwise doesn't need to be dropped. If not set to 0, item must be deleted afterwards.
-  */
-/obj/item/bot_assembly/proc/can_finish_build(obj/item/I, mob/user, drop_item = 1)
+/obj/item/bot_assembly/proc/can_finish_build(obj/item/I, mob/user)
 	if(istype(loc, /obj/item/storage/backpack))
 		to_chat(user, "<span class='warning'>You must take [src] out of [loc] first!</span>")
 		return FALSE
-	if(!I || !user || (drop_item && !user.temporarilyRemoveItemFromInventory(I)))
+	if(!I || !user || !user.temporarilyRemoveItemFromInventory(I))
 		return FALSE
 	return TRUE
 
@@ -255,8 +247,6 @@
 				S.firstaid = firstaid
 				S.robot_arm = robot_arm
 				S.healthanalyzer = healthanalyzer
-				var/obj/item/storage/firstaid/FA = firstaid
-				S.damagetype_healer = initial(FA.damagetype_healed)
 				qdel(src)
 
 
@@ -465,7 +455,8 @@
 /obj/item/bot_assembly/hygienebot
 	name = "incomplete hygienebot assembly"
 	desc = "Clear out the swamp once and for all"
-	icon_state = "hygienebot"
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "drone"
 	created_name = "Hygienebot"
 
 /obj/item/bot_assembly/hygienebot/attackby(obj/item/I, mob/user, params)
@@ -474,20 +465,13 @@
 		if(ASSEMBLY_FIRST_STEP)
 			if(I.tool_behaviour == TOOL_WELDER)
 				if(I.use_tool(src, user, 0, volume=40))
+					add_overlay("hs_hole")
 					to_chat(user, "<span class='notice'>You weld a water hole in [src]!</span>")
 					build_step++
 					return
 
 		if(ASSEMBLY_SECOND_STEP)
-			if(isprox(I))
-				if(!user.temporarilyRemoveItemFromInventory(I))
-					return
-				build_step++
-				to_chat(user, "<span class='notice'>You add [I] to [src].</span>")
-				qdel(I)
-
-		if(ASSEMBLY_THIRD_STEP)
-			if(!can_finish_build(I, user, 0))
+			if(!can_finish_build(I, user))
 				return
 			if(istype(I, /obj/item/stack/ducts))
 				var/obj/item/stack/ducts/D = I
@@ -495,8 +479,14 @@
 					to_chat(user, "<span class='warning'>You need one fluid duct to finish [src]</span>")
 					return
 				to_chat(user, "<span class='notice'>You start to pipe up [src]...</span>")
-				if(do_after(user, 40, target = src) && D.use(1))
-					to_chat(user, "<span class='notice'>You pipe up [src].</span>")
-					var/mob/living/simple_animal/bot/hygienebot/H = new(drop_location())
-					H.name = created_name
-					qdel(src)
+				if(do_after(user, 40, target = src))
+					if(D.get_amount() >= 1)
+						D.use(1)
+						to_chat(user, "<span class='notice'>You pipe up [src].</span>")
+						build_step++
+					else
+						return
+				var/mob/living/simple_animal/bot/hygienebot/H = new(drop_location())
+				H.name = created_name
+				qdel(src)
+				return TRUE

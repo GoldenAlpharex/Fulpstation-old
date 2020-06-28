@@ -171,6 +171,7 @@
 	cost = 10
 	requirements = list(50,40,30,20,10,10,10,10,10,10)
 	repeatable = TRUE
+	high_population_requirement = 10
 	flags = TRAITOR_RULESET
 
 /datum/dynamic_ruleset/midround/autotraitor/acceptable(population = 0, threat = 0)
@@ -187,9 +188,11 @@
 	for(var/mob/living/player in living_players)
 		if(issilicon(player)) // Your assigned role doesn't change when you are turned into a silicon.
 			living_players -= player
-		else if(is_centcom_level(player.z))
+			continue
+		if(is_centcom_level(player.z))
 			living_players -= player // We don't autotator people in CentCom
-		else if(player.mind && (player.mind.special_role || player.mind.antag_datums?.len > 0))
+			continue
+		if(player.mind && (player.mind.special_role || player.mind.antag_datums?.len > 0))
 			living_players -= player // We don't autotator people with roles already
 
 /datum/dynamic_ruleset/midround/autotraitor/ready(forced = FALSE)
@@ -205,74 +208,6 @@
 	M.mind.add_antag_datum(newTraitor)
 	return TRUE
 
-//////////////////////////////////////////////
-//                                          //
-//                 FAMILIES                 //
-//                                          //
-//////////////////////////////////////////////
-
-/datum/dynamic_ruleset/midround/families
-	name = "Family Head Aspirants"
-	persistent = TRUE
-	antag_flag = ROLE_FAMILIES
-	protected_roles = list("Prisoner", "Head of Personnel")
-	restricted_roles = list("Cyborg", "AI", "Security Officer", "Warden", "Detective", "Head of Security", "Captain")
-	required_candidates = 6 // gotta have 'em ALL
-	weight = 1
-	cost = 25
-	requirements = list(101,101,101,101,101,80,50,30,10,10)
-	flags = HIGHLANDER_RULESET
-	blocking_rules = list(/datum/dynamic_ruleset/roundstart/families)
-	minimum_players = 36
-	antag_cap = list(6,6,6,6,6,6,6,6,6,6)
-	/// A reference to the handler that is used to run pre_execute(), execute(), etc..
-	var/datum/gang_handler/handler
-
-/datum/dynamic_ruleset/midround/families/trim_candidates()
-	..()
-	candidates = living_players
-	for(var/mob/living/player in candidates)
-		if(issilicon(player))
-			candidates -= player
-		else if(is_centcom_level(player.z))
-			candidates -= player
-		else if(player.mind && (player.mind.special_role || player.mind.antag_datums?.len > 0))
-			candidates -= player
-		else if(HAS_TRAIT(player, TRAIT_MINDSHIELD))
-			candidates -= player
-
-/datum/dynamic_ruleset/midround/families/acceptable(population = 0, threat_level = 0)
-	. = ..()
-	if(GLOB.deaths_during_shift > round(mode.roundstart_pop_ready / 2))
-		return FALSE
-
-
-/datum/dynamic_ruleset/midround/families/ready(forced = FALSE)
-	if (required_candidates > living_players.len)
-		return FALSE
-	return ..()
-
-/datum/dynamic_ruleset/midround/families/pre_execute()
-	..()
-	handler = new /datum/gang_handler(candidates,restricted_roles)
-	handler.gangs_to_generate = (antag_cap[indice_pop] / 2)
-	handler.gang_balance_cap = clamp((indice_pop - 3), 2, 5) // gang_balance_cap by indice_pop: (2,2,2,2,2,3,4,5,5,5)
-	handler.midround_ruleset = TRUE
-	handler.use_dynamic_timing = TRUE
-	return handler.pre_setup_analogue()
-
-/datum/dynamic_ruleset/midround/families/execute()
-	return handler.post_setup_analogue(TRUE)
-
-/datum/dynamic_ruleset/midround/families/clean_up()
-	QDEL_NULL(handler)
-	..()
-
-/datum/dynamic_ruleset/midround/families/rule_process()
-	return handler.process_analogue()
-
-/datum/dynamic_ruleset/midround/families/round_result()
-	return handler.set_round_result_analogue()
 
 //////////////////////////////////////////////
 //                                          //
@@ -291,6 +226,7 @@
 	weight = 3
 	cost = 35
 	requirements = list(101,101,80,70,60,60,50,50,40,40)
+	high_population_requirement = 35
 	required_type = /mob/living/silicon/ai
 	var/ion_announce = 33
 	var/removeDontImproveChance = 10
@@ -301,9 +237,11 @@
 	for(var/mob/living/player in candidates)
 		if(!isAI(player))
 			candidates -= player
-		else if(is_centcom_level(player.z))
+			continue
+		if(is_centcom_level(player.z))
 			candidates -= player
-		else if(player.mind && (player.mind.special_role || player.mind.antag_datums?.len > 0))
+			continue
+		if(player.mind && (player.mind.special_role || player.mind.antag_datums?.len > 0))
 			candidates -= player
 
 /datum/dynamic_ruleset/midround/malf/execute()
@@ -338,6 +276,7 @@
 	weight = 1
 	cost = 20
 	requirements = list(90,90,70,40,30,20,10,10,10,10)
+	high_population_requirement = 50
 	repeatable = TRUE
 
 /datum/dynamic_ruleset/midround/from_ghosts/wizard/ready(forced = FALSE)
@@ -369,6 +308,7 @@
 	weight = 5
 	cost = 35
 	requirements = list(90,90,90,80,60,40,30,20,10,10)
+	high_population_requirement = 10
 	var/list/operative_cap = list(2,2,3,3,4,5,5,5,5,5)
 	var/datum/team/nuclear/nuke_team
 	flags = HIGHLANDER_RULESET
@@ -411,6 +351,7 @@
 	weight = 4
 	cost = 10
 	requirements = list(101,101,101,80,60,50,30,20,10,10)
+	high_population_requirement = 50
 	repeatable = TRUE
 
 /datum/dynamic_ruleset/midround/from_ghosts/blob/generate_ruleset_body(mob/applicant)
@@ -433,6 +374,7 @@
 	weight = 3
 	cost = 10
 	requirements = list(101,101,101,70,50,40,20,15,10,10)
+	high_population_requirement = 50
 	repeatable = TRUE
 	var/list/vents = list()
 
@@ -479,6 +421,7 @@
 	weight = 3
 	cost = 10
 	requirements = list(101,101,101,70,50,40,20,15,10,10)
+	high_population_requirement = 50
 	repeatable = TRUE
 	var/list/spawn_locs = list()
 
@@ -525,6 +468,7 @@
 	weight = 4
 	cost = 10
 	requirements = list(101,101,101,80,60,50,30,20,10,10)
+	high_population_requirement = 50
 	repeatable = TRUE
 	var/list/spawn_locs = list()
 

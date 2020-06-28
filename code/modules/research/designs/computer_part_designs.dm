@@ -143,12 +143,12 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 // APC Link
-/datum/design/apc_link
+/datum/design/APClink
 	name = "Area Power Connector"
 	id = "APClink"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2000)
-	build_path = /obj/item/computer_hardware/recharger/apc_recharger
+	build_path = /obj/item/computer_hardware/recharger/APC
 	category = list("Computer Parts")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 

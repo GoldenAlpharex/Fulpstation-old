@@ -4,27 +4,32 @@
 				BLOOD SYSTEM
 ****************************************************/
 
-/mob/living/carbon/monkey/handle_blood()
-	if(bodytemperature <= TCRYO || (HAS_TRAIT(src, TRAIT_HUSK))) //cryosleep or husked people do not pump the blood.
+/mob/living/carbon/human/proc/suppress_bloodloss(amount)
+	if(bleedsuppress)
 		return
+	else
+		bleedsuppress = TRUE
+		addtimer(CALLBACK(src, .proc/resume_bleeding), amount)
 
-	var/temp_bleed = 0
-	for(var/X in bodyparts)
-		var/obj/item/bodypart/BP = X
-		temp_bleed += BP.get_bleed_rate()
-		BP.generic_bleedstacks = max(0, BP.generic_bleedstacks - 1)
-	bleed(temp_bleed)
+/mob/living/carbon/human/proc/resume_bleeding()
+	bleedsuppress = 0
+	if(stat != DEAD && bleed_rate)
+		to_chat(src, "<span class='warning'>The blood soaks through your bandage.</span>")
 
-	//Blood regeneration if there is some space
-	if(blood_volume < BLOOD_VOLUME_NORMAL)
-		blood_volume += 0.1 // regenerate blood VERY slowly
-		if(blood_volume < BLOOD_VOLUME_OKAY)
-			adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
+
+/mob/living/carbon/monkey/handle_blood()
+	if(bodytemperature >= TCRYO && !(HAS_TRAIT(src, TRAIT_HUSK))) //cryosleep or husked people do not pump the blood.
+		//Blood regeneration if there is some space
+		if(blood_volume < BLOOD_VOLUME_NORMAL)
+			blood_volume +=  0.2 // 0.1 // regenerate blood VERY slowly  // FULPSTATION: Let's double it, why not?
+			if(blood_volume < BLOOD_VOLUME_OKAY)
+				adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
 
-	if(NOBLOOD in dna.species.species_traits || bleedsuppress || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
+	if(NOBLOOD in dna.species.species_traits)
+		bleed_rate = 0
 		return
 
 	if(bodytemperature >= TCRYO && !(HAS_TRAIT(src, TRAIT_HUSK))) //cryosleep or husked people do not pump the blood.
@@ -84,11 +89,21 @@
 		//Bleeding out
 		for(var/X in bodyparts)
 			var/obj/item/bodypart/BP = X
-			temp_bleed += BP.get_bleed_rate()
-			BP.generic_bleedstacks = max(0, BP.generic_bleedstacks - 1)
+			var/brutedamage = BP.brute_dam
 
-		if(temp_bleed)
-			bleed(temp_bleed)
+			//We want an accurate reading of .len
+			listclearnulls(BP.embedded_objects)
+			for(var/obj/item/embeddies in BP.embedded_objects)
+				if(!embeddies.isEmbedHarmless())
+					temp_bleed += 0.5
+
+			if(brutedamage >= 20)
+				temp_bleed += (brutedamage * 0.013)
+
+		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects (heparin) naturally decreases
+
+		if(bleed_rate && !bleedsuppress && !(HAS_TRAIT(src, TRAIT_FAKEDEATH)))
+			bleed(bleed_rate)
 
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/proc/bleed(amt)
@@ -111,11 +126,9 @@
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)
 
-/mob/living/carbon/restore_blood()
+/mob/living/carbon/human/restore_blood()
 	blood_volume = BLOOD_VOLUME_NORMAL
-	for(var/i in bodyparts)
-		var/obj/item/bodypart/BP = i
-		BP.generic_bleedstacks = 0
+	bleed_rate = 0
 
 /****************************************************
 				BLOOD TRANSFERS

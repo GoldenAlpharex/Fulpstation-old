@@ -99,7 +99,7 @@
 
 /obj/machinery/shower/proc/wash_atom(atom/A)
 	A.washed(src)
-	reagents.expose(A, TOUCH, reaction_volume)
+	reagents.reaction(A, TOUCH, reaction_volume)
 
 	if(isliving(A))
 		check_heat(A)

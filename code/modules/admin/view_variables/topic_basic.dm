@@ -77,5 +77,3 @@
 		message_admins("<span class='notice'>[key_name_admin(usr)] has added [result] [datumname] to [key_name_admin(src)].</span>")
 	if(href_list[VV_HK_CALLPROC])
 		usr.client.callproc_datum(target)
-	if(href_list[VV_HK_VIEW_REFERENCES])
-		usr.client.view_refs(target)

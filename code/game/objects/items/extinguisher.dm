@@ -192,9 +192,9 @@
 		step_towards(W,my_target)
 		if(!W.reagents)
 			continue
-		W.reagents.expose(get_turf(W))
+		W.reagents.reaction(get_turf(W))
 		for(var/A in get_turf(W))
-			W.reagents.expose(A)
+			W.reagents.reaction(A)
 		if(W.loc == my_target)
 			particles -= W
 	if(repetition < power)

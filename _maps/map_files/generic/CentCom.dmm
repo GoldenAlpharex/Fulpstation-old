@@ -2407,7 +2407,7 @@
 /turf/open/floor/circuit,
 /area/ctf)
 "gm" = (
-/obj/structure/table/reinforced/ctf,
+/obj/structure/table/reinforced,
 /turf/open/floor/plasteel/bluespace,
 /area/ctf)
 "gn" = (
@@ -2451,7 +2451,7 @@
 /turf/open/floor/plasteel,
 /area/ctf)
 "gt" = (
-/obj/structure/fluff/drake_statue,
+/obj/structure/kitchenspike,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "gu" = (
@@ -3615,7 +3615,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/supply)
 "jq" = (
-/obj/item/stack/package_wrap,
+/obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
@@ -4799,7 +4799,7 @@
 "lS" = (
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/holofloor/hyperspace,
-/area/centcom/supplypod/fly_me_to_the_moon)
+/area/centcom/supplypod/flyMeToTheMoon)
 "lT" = (
 /obj/machinery/door/airlock/centcom{
 	name = "CentCom Security";
@@ -5191,7 +5191,7 @@
 "mK" = (
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/stack/package_wrap,
+/obj/item/stack/packageWrap,
 /obj/item/stack/cable_coil,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/green{
@@ -5656,7 +5656,7 @@
 	pixel_y = -24
 	},
 /obj/structure/table/reinforced,
-/obj/item/stack/package_wrap,
+/obj/item/stack/packageWrap,
 /obj/item/stack/cable_coil,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/neutral{
@@ -6176,7 +6176,7 @@
 /area/centcom/supply)
 "ot" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/package_wrap,
+/obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light{
@@ -7041,7 +7041,7 @@
 /area/centcom/ferry)
 "pS" = (
 /obj/structure/table,
-/obj/item/stack/package_wrap,
+/obj/item/stack/packageWrap,
 /turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
 "pT" = (
@@ -9426,7 +9426,7 @@
 /area/centcom/ferry)
 "uP" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/package_wrap,
+/obj/item/stack/packageWrap,
 /obj/item/crowbar/power,
 /obj/item/wrench,
 /obj/item/hand_labeler,
@@ -11017,10 +11017,6 @@
 /obj/item/seeds/cherry/bomb,
 /turf/open/floor/wood,
 /area/centcom/holding)
-"yP" = (
-/obj/structure/fluff/drake_statue,
-/turf/open/floor/circuit/red,
-/area/ctf)
 "yU" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/centcom{
@@ -11155,7 +11151,7 @@
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
 "ze" = (
-/obj/structure/closet/secure_closet/ert_engi,
+/obj/structure/closet/secure_closet/ertEngi,
 /obj/structure/sign/directions/engineering{
 	pixel_y = 24
 	},
@@ -11163,7 +11159,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
 "zf" = (
-/obj/structure/closet/secure_closet/ert_engi,
+/obj/structure/closet/secure_closet/ertEngi,
 /obj/machinery/airalarm{
 	pixel_y = 24
 	},
@@ -11212,7 +11208,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
 "zj" = (
-/obj/structure/closet/secure_closet/ert_com,
+/obj/structure/closet/secure_closet/ertCom,
 /obj/structure/sign/directions/command{
 	pixel_y = 24
 	},
@@ -12611,7 +12607,7 @@
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
 "CB" = (
-/obj/structure/closet/secure_closet/ert_med,
+/obj/structure/closet/secure_closet/ertMed,
 /obj/structure/sign/directions/medical{
 	dir = 1;
 	pixel_y = -24
@@ -12622,7 +12618,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
 "CC" = (
-/obj/structure/closet/secure_closet/ert_med,
+/obj/structure/closet/secure_closet/ertMed,
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = -32;
@@ -12658,14 +12654,14 @@
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
 "CF" = (
-/obj/structure/closet/secure_closet/ert_sec,
+/obj/structure/closet/secure_closet/ertSec,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
 "CG" = (
-/obj/structure/closet/secure_closet/ert_sec,
+/obj/structure/closet/secure_closet/ertSec,
 /obj/structure/sign/directions/security{
 	dir = 1;
 	pixel_y = -24
@@ -16191,10 +16187,6 @@
 	},
 /turf/open/space/basic,
 /area/space)
-"Km" = (
-/obj/structure/table/reinforced/ctf,
-/turf/open/floor/plasteel/dark,
-/area/ctf)
 "Kn" = (
 /obj/structure/bookcase/random,
 /obj/effect/turf_decal/tile/neutral{
@@ -17149,7 +17141,7 @@
 /area/centcom/holding)
 "NE" = (
 /turf/open/floor/plasteel,
-/area/centcom/supplypod/pod_storage)
+/area/centcom/supplypod/podStorage)
 "NG" = (
 /obj/machinery/door/airlock/centcom{
 	name = "CentCom Security";
@@ -56781,7 +56773,6 @@ aa
 aa
 fZ
 gb
-gl
 gh
 gh
 gh
@@ -56789,7 +56780,8 @@ gh
 gh
 gh
 gh
-gl
+gh
+gh
 gw
 fZ
 gk
@@ -56811,7 +56803,6 @@ gl
 gk
 fZ
 gb
-gl
 gh
 gh
 gh
@@ -56819,7 +56810,8 @@ gh
 gh
 gh
 gh
-gl
+gh
+gh
 gw
 fZ
 aa
@@ -57038,15 +57030,15 @@ aa
 aa
 fZ
 gb
-gl
 gh
+gt
 gh
-hj
-hj
-hj
+gt
 gh
+gt
 gh
-gl
+gt
+gh
 gw
 fZ
 gk
@@ -57068,15 +57060,15 @@ gl
 gk
 fZ
 gb
-gl
 gh
+gt
 gh
-hj
-hj
-hj
+gt
 gh
+gt
 gh
-gl
+gt
+gh
 gw
 fZ
 aa
@@ -57295,15 +57287,15 @@ aa
 aa
 fZ
 gb
-gl
 gh
-gh
-hj
 gt
-hj
 gh
+gt
 gh
-gl
+gt
+gh
+gt
+gh
 gw
 fZ
 gk
@@ -57325,15 +57317,15 @@ gl
 gk
 fZ
 gb
-gl
 gh
-gh
-hj
 gt
-hj
 gh
+gt
 gh
-gl
+gt
+gh
+gt
+gh
 gw
 fZ
 aa
@@ -57552,15 +57544,15 @@ aa
 aa
 fZ
 gb
-gl
 gh
+gt
 gh
-hj
-hj
-hj
+gt
 gh
+gt
 gh
-gl
+gt
+gh
 gw
 fZ
 gk
@@ -57582,15 +57574,15 @@ gl
 gk
 fZ
 gb
-gl
 gh
+gt
 gh
-hj
-hj
-hj
+gt
 gh
+gt
 gh
-gl
+gt
+gh
 gw
 fZ
 aa
@@ -57809,7 +57801,6 @@ aa
 aa
 fZ
 gb
-gl
 gh
 gh
 gh
@@ -57817,7 +57808,8 @@ gh
 gh
 gh
 gh
-gl
+gh
+gh
 gw
 fZ
 gk
@@ -57839,7 +57831,6 @@ gl
 gk
 fZ
 gb
-gl
 gh
 gh
 gh
@@ -57847,7 +57838,8 @@ gh
 gh
 gh
 gh
-gl
+gh
+gh
 gw
 fZ
 aa
@@ -62985,9 +62977,9 @@ fZ
 fZ
 fZ
 fZ
-Km
-Km
-Km
+gh
+gh
+gh
 fZ
 fZ
 aa
@@ -81967,7 +81959,6 @@ aa
 aa
 fZ
 ge
-gq
 gh
 gh
 gh
@@ -81975,7 +81966,8 @@ gh
 gh
 gh
 gh
-gq
+gh
+gh
 gz
 fZ
 hf
@@ -81997,7 +81989,6 @@ gq
 hf
 fZ
 ge
-gq
 gh
 gh
 gh
@@ -82005,7 +81996,8 @@ gh
 gh
 gh
 gh
-gq
+gh
+gh
 gz
 fZ
 aa
@@ -82224,15 +82216,15 @@ aa
 aa
 fZ
 ge
-gq
 gh
+gt
 gh
-hB
-hB
-hB
+gt
 gh
+gt
 gh
-gq
+gt
+gh
 gz
 fZ
 hf
@@ -82254,15 +82246,15 @@ gq
 hf
 fZ
 ge
-gq
 gh
+gt
 gh
-hB
-hB
-hB
+gt
 gh
+gt
 gh
-gq
+gt
+gh
 gz
 fZ
 aa
@@ -82481,15 +82473,15 @@ aa
 aa
 fZ
 ge
-gq
 gh
+gt
 gh
-hB
-yP
-hB
+gt
 gh
+gt
 gh
-gq
+gt
+gh
 gz
 fZ
 hf
@@ -82511,15 +82503,15 @@ gq
 hf
 fZ
 ge
-gq
 gh
+gt
 gh
-hB
-yP
-hB
+gt
 gh
+gt
 gh
-gq
+gt
+gh
 gz
 fZ
 aa
@@ -82738,15 +82730,15 @@ aa
 aa
 fZ
 ge
-gq
 gh
+gt
 gh
-hB
-hB
-hB
+gt
 gh
+gt
 gh
-gq
+gt
+gh
 gz
 fZ
 hf
@@ -82768,15 +82760,15 @@ gq
 hf
 fZ
 ge
-gq
 gh
+gt
 gh
-hB
-hB
-hB
+gt
 gh
+gt
 gh
-gq
+gt
+gh
 gz
 fZ
 aa
@@ -82995,7 +82987,6 @@ aa
 aa
 fZ
 ge
-gq
 gh
 gh
 gh
@@ -83003,7 +82994,8 @@ gh
 gh
 gh
 gh
-gq
+gh
+gh
 gz
 fZ
 hf
@@ -83025,7 +83017,6 @@ gq
 hf
 fZ
 ge
-gq
 gh
 gh
 gh
@@ -83033,7 +83024,8 @@ gh
 gh
 gh
 gh
-gq
+gh
+gh
 gz
 fZ
 aa

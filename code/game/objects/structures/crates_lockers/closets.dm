@@ -115,9 +115,7 @@
 	if(wall_mounted)
 		return TRUE
 
-/obj/structure/closet/proc/can_open(mob/living/user, force = FALSE)
-	if(force)
-		return TRUE
+/obj/structure/closet/proc/can_open(mob/living/user)
 	if(welded || locked)
 		return FALSE
 	var/turf/T = get_turf(src)
@@ -155,13 +153,9 @@
 		if(AM != src && insert(AM) == -1) // limit reached
 			break
 
-/obj/structure/closet/proc/open(mob/living/user, force = FALSE)
-	if(!can_open(user, force))
+/obj/structure/closet/proc/open(mob/living/user)
+	if(opened || !can_open(user))
 		return
-	if(opened)
-		return
-	welded = FALSE
-	locked = FALSE
 	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	opened = TRUE
 	if(!dense_when_open)
@@ -169,7 +163,7 @@
 	climb_time *= 0.5 //it's faster to climb onto an open thing
 	dump_contents()
 	update_icon()
-	return TRUE
+	return 1
 
 /obj/structure/closet/proc/insert(atom/movable/AM)
 	if(contents.len >= storage_capacity)

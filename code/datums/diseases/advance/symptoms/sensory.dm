@@ -79,16 +79,14 @@
 /datum/symptom/sensory_restoration/Activate(datum/disease/advance/A)
 	if(!..())
 		return
-	var/mob/living/carbon/M = A.affected_mob
+	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(4, 5)
-			var/obj/item/organ/ears/ears = M.getorganslot(ORGAN_SLOT_EARS)
-			if(ears)
-				ears.adjustEarDamage(-4, -4)
+			M.restoreEars() //this is mostly just copy+pasted from oculine and inacusiate
 			M.adjust_blindness(-2)
 			M.adjust_blurriness(-2)
 			var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
-			if(!eyes) // only dealing with eye stuff from here on out
+			if(!eyes)
 				return
 			eyes.applyOrganDamage(-2)
 			if(HAS_TRAIT_FROM(M, TRAIT_BLIND, EYE_DAMAGE))

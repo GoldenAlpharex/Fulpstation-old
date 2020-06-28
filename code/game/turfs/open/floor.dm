@@ -141,7 +141,7 @@
 		icon_state = pick(broken_states)
 	burnt = 1
 
-/turf/open/floor/proc/make_plating(force = FALSE)
+/turf/open/floor/proc/make_plating()
 	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
 ///For when the floor is placed under heavy load. Calls break_tile(), but exists to be overridden by floor types that should resist crushing force.
@@ -207,24 +207,23 @@
 
 /turf/open/floor/singularity_pull(S, current_size)
 	..()
-	var/sheer = FALSE
-	switch(current_size)
-		if(STAGE_THREE)
-			if(prob(30))
-				sheer = TRUE
-		if(STAGE_FOUR)
-			if(prob(50))
-				sheer = TRUE
-		if(STAGE_FIVE to INFINITY)
-			if(prob(70))
-				sheer = TRUE
-			else if(prob(50) && (/turf/open/space in baseturfs))
-				ReplaceWithLattice()
-	if(sheer)
+	if(current_size == STAGE_THREE)
+		if(prob(30))
+			if(floor_tile)
+				new floor_tile(src)
+				make_plating()
+	else if(current_size == STAGE_FOUR)
+		if(prob(50))
+			if(floor_tile)
+				new floor_tile(src)
+				make_plating()
+	else if(current_size >= STAGE_FIVE)
 		if(floor_tile)
-			make_plating(TRUE)
-			new floor_tile(src)
-
+			if(prob(70))
+				new floor_tile(src)
+				make_plating()
+		else if(prob(50))
+			ReplaceWithLattice()
 
 /turf/open/floor/narsie_act(force, ignore_mobs, probability = 20)
 	. = ..()
@@ -276,7 +275,6 @@
 			if(A.electronics.unres_sides)
 				A.unres_sides = A.electronics.unres_sides
 			A.autoclose = TRUE
-			A.update_icon()
 			return TRUE
 		if(RCD_DECONSTRUCT)
 			if(!ScrapeAway(flags = CHANGETURF_INHERIT_AIR))

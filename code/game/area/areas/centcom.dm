@@ -29,7 +29,7 @@
 /area/centcom/holding
 	name = "Holding Facility"
 
-/area/centcom/supplypod/fly_me_to_the_moon
+/area/centcom/supplypod/flyMeToTheMoon
 	name = "Supplypod Shipping lane"
 	icon_state = "supplypod_flight"
 
@@ -38,7 +38,7 @@
 	icon_state = "supplypod"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
-/area/centcom/supplypod/pod_storage
+/area/centcom/supplypod/podStorage
 	name = "Supplypod Storage"
 	icon_state = "supplypod_holding"
 

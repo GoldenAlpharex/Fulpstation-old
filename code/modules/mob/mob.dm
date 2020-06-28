@@ -418,25 +418,9 @@
 		return
 
 	face_atom(A)
-	var/list/result
-	if(client)
-		LAZYINITLIST(client.recent_examines)
-		if(isnull(client.recent_examines[A]) || client.recent_examines[A] < world.time) // originally this wasn't an assoc list, but sometimes the timer failed and atoms stayed in a client's recent_examines, so we check here manually
-			client.recent_examines[A] = world.time + EXAMINE_MORE_TIME
-			result = A.examine(src)
-			addtimer(CALLBACK(src, .proc/clear_from_recent_examines, A), EXAMINE_MORE_TIME)
-		else
-			result = A.examine_more(src)
-	else
-		result = A.examine(src) // if a tree is examined but no client is there to see it, did the tree ever really exist?
-
+	var/list/result = A.examine(src)
 	to_chat(src, result.Join("\n"))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
-
-/mob/proc/clear_from_recent_examines(atom/A)
-	if(QDELETED(A) || !client)
-		return
-	LAZYREMOVE(client.recent_examines, A)
 
 /**
   * Point at an atom
@@ -462,13 +446,11 @@
 	if(istype(A, /obj/effect/temp_visual/point))
 		return FALSE
 
-	var/turf/tile = get_turf(A)
+	var/tile = get_turf(A)
 	if (!tile)
 		return FALSE
 
-	var/turf/our_tile = get_turf(src)
-	var/obj/visual = new /obj/effect/temp_visual/point(our_tile, invisibility)
-	animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
+	new /obj/effect/temp_visual/point(A,invisibility)
 
 	return TRUE
 
@@ -756,7 +738,7 @@
 			if(statpanel("SDQL2"))
 				stat("Access Global SDQL2 List", GLOB.sdql2_vv_statobj)
 				for(var/i in GLOB.sdql2_queries)
-					var/datum/sdql2_query/Q = i
+					var/datum/SDQL2_query/Q = i
 					Q.generate_stat()
 
 	if(listed_turf && client)

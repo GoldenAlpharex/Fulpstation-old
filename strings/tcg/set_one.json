@@ -1,9 +1,7 @@
 {
 	"templates": [
 		{
-			"template": "default",
-			"icon": "icons/runtime/tcg/default.dmi",
-			"series": "coreset2020"
+			"icon": "icons/obj/tcg.dmi"
 		}
 	],
 	"cards": [
@@ -19,6 +17,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -33,6 +32,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Construct",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -47,6 +47,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Abomination",
+			"series": "coreset2020",
 			"rarity": "rare"
 		},
 		{
@@ -61,6 +62,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Employee",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -75,6 +77,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Engineer",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -89,6 +92,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Employee",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -103,6 +107,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Employee",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -117,6 +122,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Commander",
+			"series": "coreset2020",
 			"rarity": "rare"
 		},
 		{
@@ -131,6 +137,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "epic"
 		},
 		{
@@ -145,6 +152,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Employee",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -159,6 +167,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -173,6 +182,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Doctor",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -187,6 +197,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Engineer",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -201,6 +212,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "rare"
 		},
 		{
@@ -215,6 +227,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Doctor",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -229,6 +242,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -243,6 +257,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Soldier",
+			"series": "coreset2020",
 			"rarity": "epic"
 		},
 		{
@@ -257,6 +272,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Sloth",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -271,6 +287,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Clown",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -285,6 +302,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon Clown",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -299,6 +317,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "epic"
 		},
 		{
@@ -313,6 +332,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -327,6 +347,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Employee",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -341,6 +362,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "rare"
 		},
 		{
@@ -355,6 +377,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Worker",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -369,6 +392,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon Corgi",
+			"series": "coreset2020",
 			"rarity": "rare"
 		},
 		{
@@ -383,6 +407,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "epic"
 		},
 		{
@@ -397,6 +422,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Officer",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -411,6 +437,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Syndicate Soldier",
+			"series": "coreset2020",
 			"rarity": "rare"
 		},
 		{
@@ -425,6 +452,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -439,6 +467,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "rare"
 		},
 		{
@@ -453,6 +482,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -467,6 +497,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -481,6 +512,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -495,6 +527,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Explorer",
+			"series": "coreset2020",
 			"rarity": "legendary"
 		},
 		{
@@ -509,6 +542,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -523,6 +557,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Scientist",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -537,6 +572,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Doctor",
+			"series": "coreset2020",
 			"rarity": "misprint"
 		},
 		{
@@ -551,6 +587,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Spirit Corgi",
+			"series": "coreset2020",
 			"rarity": "epic"
 		},
 		{
@@ -565,6 +602,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Commander",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -579,6 +617,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Officer",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -593,6 +632,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "rare"
 		},
 		{
@@ -607,6 +647,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Corgi",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -621,6 +662,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "epic"
 		},
 		{
@@ -635,6 +677,7 @@
 			"summoncost": 1,
 			"cardtype": "Human",
 			"cardsubtype": "Human Employee",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -649,6 +692,7 @@
 			"summoncost": 1,
 			"cardtype": "Human",
 			"cardsubtype": "Human Employee",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -663,6 +707,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -677,6 +722,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Employee",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -691,6 +737,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Abomination",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -705,6 +752,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon Doctor",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -719,6 +767,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Doctor",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -733,6 +782,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Mime",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -747,6 +797,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon Miner",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -761,6 +812,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Primate",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -775,6 +827,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Syndicate Soldier",
+			"series": "coreset2020",
 			"rarity": "rare"
 		},
 		{
@@ -789,6 +842,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Doctor",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -803,6 +857,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon Officer",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -817,6 +872,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Plasmaman Engineer",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -831,6 +887,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Employee",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -845,6 +902,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Employee",
+			"series": "coreset2020",
 			"rarity": "misprint"
 		},
 		{
@@ -859,6 +917,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon Rabbit",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -873,6 +932,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon Drone",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -887,6 +947,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Scientist",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -901,6 +962,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "rare"
 		},
 		{
@@ -915,6 +977,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Scientist",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -929,6 +992,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Cat",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -943,6 +1007,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Scientist",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -957,6 +1022,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon Officer",
+			"series": "coreset2020",
 			"rarity": "epic"
 		},
 		{
@@ -971,6 +1037,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Officer",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -985,6 +1052,7 @@
 			"summoncost": 1,
 			"cardtype": "Equipment",
 			"cardsubtype": "Armour",
+			"series": "coreset2020",
 			"rarity": "epic"
 		},
 		{
@@ -999,6 +1067,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -1013,6 +1082,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -1027,6 +1097,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -1041,6 +1112,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -1055,6 +1127,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Silicon",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -1069,6 +1142,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Miner",
+			"series": "coreset2020",
 			"rarity": "rare"
 		},
 		{
@@ -1083,6 +1157,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Engineer",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -1097,6 +1172,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Robot",
+			"series": "coreset2020",
 			"rarity": "rare"
 		},
 		{
@@ -1111,6 +1187,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Doctor",
+			"series": "coreset2020",
 			"rarity": "common"
 		},
 		{
@@ -1125,6 +1202,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Human Officer",
+			"series": "coreset2020",
 			"rarity": "uncommon"
 		},
 		{
@@ -1139,6 +1217,7 @@
 			"summoncost": 1,
 			"cardtype": "Creature",
 			"cardsubtype": "Xenomorph",
+			"series": "coreset2020",
 			"rarity": "rare"
 		}
 	]
