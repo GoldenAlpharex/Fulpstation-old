@@ -201,10 +201,10 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/rdconsole
-	name = "Computer Design (R&D Console)"
-	desc = "Allows for the construction of circuit boards used to build a new R&D console."
+	name = "R&D Console Production Only (Computer Board)"
+	desc = "Allows for the construction of circuit boards used to build a new R&D console that's locked to production-only."
 	id = "rdconsole"
-	build_path = /obj/item/circuitboard/computer/rdconsole
+	build_path = /obj/item/circuitboard/computer/rdconsole/production
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
