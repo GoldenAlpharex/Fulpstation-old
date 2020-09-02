@@ -173,12 +173,6 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	icon_state = "electrolite"
 	custom_materials = list(/datum/material/iron = 50, /datum/material/glass = 50)
 
-/obj/item/stock_parts/thrusters  //Fulp-only. I'll try to move this somewhere else eventually.
-	name = "thrusters"
-	desc = "The most basic way to move in space."
-	icon_state = "micro_laser"
-	custom_materials = list(/datum/material/iron = 200)
-
 //Rating 2
 
 /obj/item/stock_parts/capacitor/adv
