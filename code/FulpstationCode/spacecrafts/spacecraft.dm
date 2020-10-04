@@ -3,6 +3,7 @@
 
 #define RIGHT_ARM "right"
 #define LEFT_ARM "left"
+#define SPACECRAFT_UNDER_ARMS_LAYER 4.29 //Yeah, it's a strange name, but it's for overlays of arms that go slightly behind the spacecraft.
 #define SPACECRAFT_LAYER 4.3
 #define SPACECRAFT_ARMS_LAYER 4.4
 #define SPACECRAFT_ABOVE_ARMS_LAYER 4.41
@@ -26,7 +27,7 @@
 	var/obj/machinery/atmospherics/components/unary/portables_connector/connected_port = null
 	var/overlays_file = 'icons/Fulpicons/spacecrafts/spacecraft_overlays.dmi'
 
-	var/static/list/spacecraft_overlays = list()
+	var/static/list/spacecraft_overlays = list() //To keep track of all of the different overlays that get applied on the spacecraft.
 	var/obj/item/stock_parts/cell/cell //To keep track of the cell in the spacecraft.
 	var/obj/item/stock_parts/scanning_module/scanmod //To keep track of the scanning module in the spacecraft.
 	var/obj/item/stock_parts/capacitor/capacitor //To keep track of the capacitor in the spacecraft.
@@ -271,7 +272,7 @@
 				if(0.01 to 0.25)
 					occupants.throw_alert("charge", /obj/screen/alert/lowcell, 3)
 				else
-					occupants.throw_alert("charge", /obj/screen/alert/emptycell)*/
+					occupants.throw_alert("charge", /obj/screen/alert/emptycell)*/            // Figure a way to make this work later.
 	if(lights)
 		if(!scanmod)
 			lights = FALSE
@@ -428,26 +429,35 @@
 	var/mutable_appearance/left_arm_overlay
 	var/mutable_appearance/thruster_overlay
 
+
 	if(right_arm)
-		right_arm_overlay = get_spacecraft_overlay("pod_arms", overlays_file, SPACECRAFT_ARMS_LAYER)
+		right_arm_overlay = get_spacecraft_overlay("pod_arm_right", overlays_file, SPACECRAFT_ARMS_LAYER)
+		right_arm_overlay.transform = null
 		right_arm_overlay.pixel_y = -23
 		if(dir == EAST)
-			right_arm_overlay = get_spacecraft_overlay("pod_arms", overlays_file, SPACECRAFT_ABOVE_ARMS_LAYER)
+			right_arm_overlay = get_spacecraft_overlay("pod_arm_right", overlays_file, SPACECRAFT_ABOVE_ARMS_LAYER)
 			right_arm_overlay.pixel_x = 12
+			right_arm_overlay.pixel_y = -25
 		if(dir == WEST)
-			right_arm_overlay.pixel_x = -12
+			right_arm_overlay = get_spacecraft_overlay("pod_arm_right", overlays_file, SPACECRAFT_UNDER_ARMS_LAYER)
+			right_arm_overlay.pixel_x = -10
+			right_arm_overlay.pixel_y = -23
 		if(dir == NORTH || dir == SOUTH)
 			right_arm_overlay.pixel_x = 0
 	if(left_arm)
-		left_arm_overlay = get_spacecraft_overlay("pod_arms", overlays_file, SPACECRAFT_ARMS_LAYER)
+		left_arm_overlay = get_spacecraft_overlay("pod_arm_left", overlays_file, SPACECRAFT_ARMS_LAYER)
 		left_arm_overlay.pixel_y = -23
 		if(dir == EAST)
-			left_arm_overlay.pixel_x = 12
+			left_arm_overlay = get_spacecraft_overlay("pod_arm_left", overlays_file, SPACECRAFT_UNDER_ARMS_LAYER)
+			left_arm_overlay.pixel_x = 10
+			left_arm_overlay.pixel_y = -25
 		if(dir == WEST)
-			left_arm_overlay = get_spacecraft_overlay("pod_arms", overlays_file, SPACECRAFT_ABOVE_ARMS_LAYER)
+			left_arm_overlay = get_spacecraft_overlay("pod_arm_left", overlays_file, SPACECRAFT_ABOVE_ARMS_LAYER)
 			left_arm_overlay.pixel_x = -12
+			left_arm_overlay.pixel_y = -23
 		if(dir == NORTH || dir == SOUTH)
 			left_arm_overlay.pixel_x = 0
+	
 	if(thrusters)
 		thruster_overlay = get_spacecraft_overlay("thrusters", overlays_file, SPACECRAFT_THRUSTERS_LAYER)
 		if(dir == EAST)
@@ -487,7 +497,6 @@
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
-
 /obj/item/spacecraft_parts/arm
 	name = "spacecraft arm"
 	icon = 'icons/Fulpicons/spacecrafts/spacecraft_overlays.dmi'
@@ -496,8 +505,8 @@
 	var/description = "A generic spacecraft-grade arm." //This is to make it easier on the examine() to not add a new line every time the user examines the arm, which could otherwise potentially lead to memory issues.
 
 /obj/item/spacecraft_parts/arm/examine()
+	desc = "[description]\nIt is currently in the [configuration] configuration."
 	. = ..()
-	desc = description + "\nIt is currently in the [configuration] configuration."
 
 /obj/item/spacecraft_parts/arm/update_icon()
 	if(configuration == RIGHT_ARM)
