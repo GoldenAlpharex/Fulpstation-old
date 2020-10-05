@@ -19,8 +19,9 @@
 	var/circuit_radio = /obj/item/circuitboard/spacecraft/radio
 	var/circuit_gps = /obj/item/circuitboard/spacecraft/gps
 
-	//Defining the arms and modules here, to make it easier with the "name" in the lists of steps.matrix
+	//Defining the arms and modules here, to make it easier with the "name" in the lists of steps.
 	var/obj/item/spacecraft_parts/arm/arm = /obj/item/spacecraft_parts/arm
+	var/last_arm_configuration
 
 	//Various inner and outer things that don't need to be separate items.
 	var/inner_plating = /obj/item/stack/sheet/mineral/titanium
@@ -80,6 +81,7 @@
 		if(L["config"] != null)
 			if(L["config"] != tool.configuration)  //Check for the arms, to see if it's of the right configuration (so left only accepts left and right only accepts right).
 				return FALSE
+		last_arm_configuration = tool.configuration
 	return ..() //Makes it so it does what the parent would normally do once the first part of the overwrite proc has gone through.
 
 /datum/component/construction/spacecraft/proc/get_part_name(obj/item/I)
@@ -421,13 +423,14 @@
 	)
 
 /datum/component/construction/spacecraft/proc/get_outer_plating_steps()
+	var/prevstep_desc = last_arm_configuration ? "The "+ last_arm_configuration + " arm is installed firmly in place." : "The Inner Window is welded firmly in place."
 	return list(
 		list(
 			"key" = outer_window,
 			"amount" = outer_window_amount,
 			"back_key" = TOOL_WRENCH,
 			"name" = "outer window",
-			"desc" = "The Inner Window is welded firmly in place."
+			"desc" = prevstep_desc
 		),
 		list(
 			"key" = TOOL_WRENCH,

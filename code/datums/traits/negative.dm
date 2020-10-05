@@ -173,6 +173,8 @@
 				heirloom_type = pick(/obj/item/clothing/head/hardhat, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
 			if("Atmospheric Technician")
 				heirloom_type = pick(/obj/item/lighter, /obj/item/lighter/greyscale, /obj/item/storage/box/matches)
+			if("Mechanic")
+				heirloom_type = pick(/obj/item/clothing/head/welding, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
 			//Supply
 			if("Quartermaster")
 				heirloom_type = pick(/obj/item/stamp, /obj/item/stamp/denied)

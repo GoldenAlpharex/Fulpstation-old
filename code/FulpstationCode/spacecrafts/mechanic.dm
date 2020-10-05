@@ -22,6 +22,10 @@
 
 	display_order = JOB_DISPLAY_ORDER_STATION_ENGINEER
 
+	// FULP Integration Vars
+	id_icon = 'icons/Fulpicons/cards.dmi'	// Overlay on your ID
+	hud_icon = 'icons/Fulpicons/fulphud.dmi'		 	// Sec Huds see this
+
 /datum/outfit/job/mechanic
 	name = "Mechanic"
 	jobtype = /datum/job/mechanic
@@ -29,7 +33,7 @@
 	belt = /obj/item/storage/belt/utility/full/engi
 	l_pocket = /obj/item/pda/engineering
 	ears = /obj/item/radio/headset/headset_eng
-	uniform = /obj/item/clothing/under/rank/engineering/engineer
+	uniform = /obj/item/clothing/under/rank/engineering/mechanic
 	shoes = /obj/item/clothing/shoes/workboots
 	head = /obj/item/clothing/head/hardhat
 	r_pocket = /obj/item/t_scanner
@@ -53,3 +57,12 @@
 	head = null
 	internals_slot = ITEM_SLOT_SUITSTORE
 
+/obj/item/clothing/under/rank/engineering/mechanic
+	desc = "It's a yellow and purple jumpsuit worn by mechanics."
+	name = "mechanic's jumpsuit"
+	icon = 'icons/Fulpicons/spacecrafts/mechanic.dmi'
+	worn_icon = 'icons/Fulpicons/spacecrafts/mechanic.dmi'
+	icon_state = "mechanic"
+	inhand_icon_state = "mechanic"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 60, "acid" = 20)
+	resistance_flags = NONE

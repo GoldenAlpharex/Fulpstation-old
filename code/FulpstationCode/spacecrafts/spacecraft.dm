@@ -42,6 +42,8 @@
 	var/lights_range = 6
 	var/lights_power = 2
 	var/lights_energy_drain = 5 //Basic lights energy drain when they're turned on.
+	var/speed_modifier = 2 // To keep track of the speed modifier of the spacecraft.
+	var/list/speed_words = list("half-", "regular ", "full ")
 	var/regular_move_delay = 2.5 //To keep track of the basic move delay of the spacecraft, influenced by the engine of the spacecraft.
 	var/obj/item/radio/mech/radio
 
@@ -62,9 +64,9 @@
 	add_lights()
 	add_right_arm()
 	add_left_arm()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.override_allow_spacemove = TRUE
-	D.vehicle_move_delay = 50 //Default move delay, if needed at some point. It gets changed a lot, so this might get changed eventually.
+	// var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+	// D.override_allow_spacemove = TRUE
+	// D.vehicle_move_delay = 50 //Default move delay, if needed at some point. It gets changed a lot, so this might get changed eventually.
 	set_spacecraft_overlay()
 	START_PROCESSING(SSobj, src)
 
@@ -102,6 +104,7 @@
 	else
 		qdel(cabin_air)
 	cabin_air = null
+	. = ..()
 
 /obj/vehicle/sealed/spacecraft/CheckParts(list/parts_list)
 	..()
@@ -127,7 +130,7 @@
 		lights_energy_drain = 6 - scanmod.rating
 	if(engine)
 		if(engine.rating < 5)
-			regular_move_delay = 1.5 - 0.3*engine.rating
+			regular_move_delay = 1.5 - 0.3 * engine.rating
 		if(engine.rating == 5)
 			regular_move_delay = 0.1
 
@@ -294,19 +297,23 @@
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/env = T.return_air()
 	var/pressure = env.return_pressure()
-	var/datum/component/riding/R = GetComponent(/datum/component/riding)
+	// var/datum/component/riding/R = GetComponent(/datum/component/riding)
+	// override_allow_spacemove = TRUE
+	var/power_consumption = 5 * 2 ** (speed_modifier - 1)
 	if(!engine) //Shouldn't be moving without an engine.
 		canmove = FALSE
 		return ..()
 	if(pressure >= 30) //Pressure too high? Tough luck, can't move.
-		R.vehicle_move_delay = 500
+		movedelay = 500
 		canmove = FALSE
+		power_consumption = 0
 		return ..()
 	if(pressure <= 30 && pressure > 0.1) //Still some pressure? Tough luck, slow as fuck.
-		R.vehicle_move_delay = 50
+		movedelay = 25 * 2/speed_modifier
 	if(pressure <= 0.1) //Finally in space like intended? Godspeed brother.
-		R.vehicle_move_delay = regular_move_delay
-	R.handle_ride(user, direction)
+		movedelay = regular_move_delay * 2 ** (2 - speed_modifier) // So basically, half-speed (double delay), regular speed (normal delay), full speed (half delay)
+	vehicle_move(direction)
+	use_power(power_consumption)
 	return TRUE
 
 //// Atmospherics stuff ////
@@ -359,6 +366,7 @@
 /obj/vehicle/sealed/spacecraft/generate_actions()
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/spacecraft/eject)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/spacecraft/spacecraft_toggle_lights, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/sealed/spacecraft/spacecraft_speed_control, VEHICLE_CONTROL_DRIVE)
 
 /datum/action/vehicle/sealed/spacecraft
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUN | AB_CHECK_CONSCIOUS
@@ -418,6 +426,20 @@
 	to_chat(owner, "<span class='notice'>Toggled lights [chassis.lights?"on":"off"].</span>")
 	UpdateButtonIcon()
 
+/datum/action/vehicle/sealed/spacecraft/spacecraft_speed_control
+	name = "Change Speed"
+	icon_icon = 'icons/Fulpicons/spacecrafts/spacecraft_buttons.dmi'
+	button_icon_state = "speed_2"
+
+/datum/action/vehicle/sealed/spacecraft/spacecraft_speed_control/Trigger()
+	if(chassis.speed_modifier < 3)
+		chassis.speed_modifier += 1
+	else
+		chassis.speed_modifier = 1
+	button_icon_state = "speed_[chassis.speed_modifier]"
+	to_chat(owner, "<span class='notice'>The engine is now working at [chassis.speed_words[chassis.speed_modifier]]speed.")
+	UpdateButtonIcon()
+
 //// Overlay stuff ////
 
 /obj/vehicle/sealed/spacecraft/setDir(newdir)
@@ -432,29 +454,34 @@
 
 	if(right_arm)
 		right_arm_overlay = get_spacecraft_overlay("pod_arm_right", overlays_file, SPACECRAFT_ARMS_LAYER)
-		right_arm_overlay.transform = null
+		right_arm_overlay.layer = SPACECRAFT_ARMS_LAYER
+		right_arm_overlay.color = null
 		right_arm_overlay.pixel_y = -23
 		if(dir == EAST)
-			right_arm_overlay = get_spacecraft_overlay("pod_arm_right", overlays_file, SPACECRAFT_ABOVE_ARMS_LAYER)
+			right_arm_overlay.layer = SPACECRAFT_ABOVE_ARMS_LAYER
 			right_arm_overlay.pixel_x = 12
-			right_arm_overlay.pixel_y = -25
+			// right_arm_overlay.pixel_y = -23
 		if(dir == WEST)
-			right_arm_overlay = get_spacecraft_overlay("pod_arm_right", overlays_file, SPACECRAFT_UNDER_ARMS_LAYER)
-			right_arm_overlay.pixel_x = -10
-			right_arm_overlay.pixel_y = -23
+			right_arm_overlay.layer = SPACECRAFT_UNDER_ARMS_LAYER
+			right_arm_overlay.pixel_x = -8
+			right_arm_overlay.color = "#777777"
+			// right_arm_overlay.pixel_y = -25
 		if(dir == NORTH || dir == SOUTH)
 			right_arm_overlay.pixel_x = 0
 	if(left_arm)
 		left_arm_overlay = get_spacecraft_overlay("pod_arm_left", overlays_file, SPACECRAFT_ARMS_LAYER)
+		left_arm_overlay.layer = SPACECRAFT_ARMS_LAYER
+		left_arm_overlay.color = null
 		left_arm_overlay.pixel_y = -23
 		if(dir == EAST)
-			left_arm_overlay = get_spacecraft_overlay("pod_arm_left", overlays_file, SPACECRAFT_UNDER_ARMS_LAYER)
-			left_arm_overlay.pixel_x = 10
-			left_arm_overlay.pixel_y = -25
+			left_arm_overlay.layer = SPACECRAFT_UNDER_ARMS_LAYER
+			left_arm_overlay.pixel_x = 8
+			left_arm_overlay.color = "#777777"
+			// left_arm_overlay.pixel_y = -25
 		if(dir == WEST)
-			left_arm_overlay = get_spacecraft_overlay("pod_arm_left", overlays_file, SPACECRAFT_ABOVE_ARMS_LAYER)
+			left_arm_overlay.layer = SPACECRAFT_ABOVE_ARMS_LAYER
 			left_arm_overlay.pixel_x = -12
-			left_arm_overlay.pixel_y = -23
+			// left_arm_overlay.pixel_y = -23
 		if(dir == NORTH || dir == SOUTH)
 			left_arm_overlay.pixel_x = 0
 	
@@ -499,14 +526,14 @@
 
 /obj/item/spacecraft_parts/arm
 	name = "spacecraft arm"
+	desc = "A generic spacecraft-grade arm."
 	icon = 'icons/Fulpicons/spacecrafts/spacecraft_overlays.dmi'
 	icon_state = "pod_arms_item"
 	var/configuration = RIGHT_ARM
-	var/description = "A generic spacecraft-grade arm." //This is to make it easier on the examine() to not add a new line every time the user examines the arm, which could otherwise potentially lead to memory issues.
 
 /obj/item/spacecraft_parts/arm/examine()
-	desc = "[description]\nIt is currently in the [configuration] configuration."
 	. = ..()
+	. += "It is currently in the [configuration] configuration."
 
 /obj/item/spacecraft_parts/arm/update_icon()
 	if(configuration == RIGHT_ARM)
@@ -546,8 +573,7 @@
 /obj/item/spacecraft_parts/headlights
 	name = "headlights"
 	desc = "For those scared of the dark. Intended for spacecrafts."
-	icon = 'icons/obj/stock_parts.dmi'
-	icon_state = "advanced_matter_bin"
+	icon_state = "headlights"
 	custom_materials = list(/datum/material/iron = 50, /datum/material/glass = 200)
 
 /datum/design/spacecraft_parts/headlights
@@ -616,6 +642,7 @@
 /obj/item/spacecraft_parts/pilot_seat
 	name = "pilot seat"
 	desc = "Very comfortable, even has integrated joysticks for controlling the spacecraft!"
+	icon_state = "pilot_seat"
 	custom_materials = list(/datum/material/iron = 200)
 
 /datum/design/spacecraft_parts/pilot_seat
@@ -628,6 +655,7 @@
 /obj/item/spacecraft_parts/dashboard
 	name = "dashboard"
 	desc = "So many buttons..."
+	icon_state = "dashboard"
 	custom_materials = list(/datum/material/iron = 200, /datum/material/glass = 50)
 
 /datum/design/spacecraft_parts/dashboard
