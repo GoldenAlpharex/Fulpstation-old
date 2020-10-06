@@ -1,4 +1,3 @@
-==== BASE ====
 #define SENSORS_UPDATE_PERIOD 100 //How often the sensor data updates.
 
 /obj/machinery/computer/crew
@@ -236,4 +235,3 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			AI.ai_camera_track(params["name"])
 
 #undef SENSORS_UPDATE_PERIOD
-==== BASE ====

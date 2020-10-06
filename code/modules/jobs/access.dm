@@ -1,4 +1,3 @@
-==== BASE ====
 
 //returns TRUE if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/M)
@@ -9,7 +8,7 @@
 		if(ispAI(M))
 			return FALSE
 		return TRUE	//AI can do whatever it wants
-	if(IsAdminGhost(M))
+	if(isAdminGhostAI(M))
 		//Access can't stop the abuse
 		return TRUE
 	else if(istype(M) && SEND_SIGNAL(M, COMSIG_MOB_ALLOWED, src))
@@ -386,4 +385,3 @@
 	if(jobName in get_all_syndicate_jobs()) //Sets icon to Syndicate logo if from the list
 		return "Syndicate Official"
 	return "Unknown" //Return unknown if none of the above apply
-==== BASE ====

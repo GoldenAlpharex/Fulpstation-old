@@ -1,8 +1,6 @@
 /datum/job/mechanic
 	title = "Mechanic"
-	flag = ENGINEER
 	department_head = list("Chief Engineer")
-	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 5
 	spawn_positions = 2
@@ -20,7 +18,8 @@
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_ENG
 
-	display_order = JOB_DISPLAY_ORDER_STATION_ENGINEER
+	display_order = JOB_DISPLAY_ORDER_MECHANIC
+	bounty_types = CIV_JOB_ENG
 
 	// FULP Integration Vars
 	id_icon = 'icons/Fulpicons/cards.dmi'	// Overlay on your ID
