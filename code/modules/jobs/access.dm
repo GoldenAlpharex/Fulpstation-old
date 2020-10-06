@@ -1,3 +1,4 @@
+==== BASE ====
 
 //returns TRUE if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/M)
@@ -365,10 +366,13 @@
 				"Research Director", "Scientist", "Roboticist", "Head of Security", "Warden", "Detective", "Security Officer", "Prisoner")
 
 /proc/get_all_job_icons() //For all existing HUD icons
-	return get_all_jobs() + list("Emergency Response Team Commander", "Security Response Officer", "Engineering Response Officer", "Medical Response Officer", "Entertainment Response Officer", "Religious Response Officer", "Janitorial Response Officer", "Death Commando")
+	return get_all_jobs() + list("Emergency Response Team Commander", "Security Response Officer", "Engineering Response Officer", "Medical Response Officer", "Entertainment Response Officer", "Religious Response Officer", "Janitorial Response Officer", "Death Commando", "Syndicate Captain", "Syndicate Medical Doctor", "Syndicate Assault Operative", "Syndicate Engineer", "Syndicate Operative")
 
 /proc/get_all_centcom_jobs()
 	return list("Central Command","VIP Guest","Custodian","Thunderdome Overseer","CentCom Official","Medical Officer","Research Officer","Special Ops Officer","Admiral","CentCom Commander","CentCom Bartender","Private Security Force")
+
+/proc/get_all_syndicate_jobs()
+	return list("Syndicate Overlord", "Syndicate Mastermind", "Syndicate Admiral", "Syndicate Official", "Syndicate", "Syndicate Commander", "Syndicate Ship Captain")
 
 /obj/item/proc/GetJobName() //Used in secHUD icon generation
 	var/obj/item/card/id/I = GetID()
@@ -379,4 +383,7 @@
 		return jobName
 	if(jobName in get_all_centcom_jobs()) //Return with the NT logo if it is a CentCom job
 		return "CentCom"
+	if(jobName in get_all_syndicate_jobs()) //Sets icon to Syndicate logo if from the list
+		return "Syndicate Official"
 	return "Unknown" //Return unknown if none of the above apply
+==== BASE ====

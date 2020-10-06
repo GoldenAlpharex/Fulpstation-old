@@ -1,3 +1,4 @@
+==== BASE ====
 #define SENSORS_UPDATE_PERIOD 100 //How often the sensor data updates.
 
 /obj/machinery/computer/crew
@@ -79,11 +80,10 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 /datum/crewmonitor/Destroy()
 	return ..()
 
-/datum/crewmonitor/ui_interact(mob/user, ui_key = "crew", datum/tgui/ui = null, force_open = FALSE, \
-							datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/crewmonitor/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
-		ui = new(user, src, ui_key, "CrewConsole", "crew monitor", 800, 600 , master_ui, state)
+		ui = new(user, src, "CrewConsole")
 		ui.open()
 
 /datum/crewmonitor/proc/show(mob/M, source)
@@ -236,3 +236,4 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			AI.ai_camera_track(params["name"])
 
 #undef SENSORS_UPDATE_PERIOD
+==== BASE ====
