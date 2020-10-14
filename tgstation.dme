@@ -737,6 +737,7 @@
 #include "code\FulpstationCode\spacecrafts\mechanic.dm"
 #include "code\FulpstationCode\spacecrafts\spacecraft.dm"
 #include "code\FulpstationCode\spacecrafts\spacecraft_construction_paths.dm"
+#include "code\FulpstationCode\spacecrafts\spacecraft_fabricator.dm"
 #include "code\game\alternate_appearance.dm"
 #include "code\game\atoms.dm"
 #include "code\game\atoms_movable.dm"

@@ -519,8 +519,8 @@
 /datum/design/spacecraft_parts
 	name = "Spacecraft Parts"
 	desc = "You feel compulsed to tell the coders about discovering this item."
-	build_type = PROTOLATHE
-	category = list("Stock Parts")
+	build_type = SPACEFAB
+	category = list("Spacecraft Essentials")
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
@@ -556,6 +556,7 @@
 	id = "spacecraft_arm"
 	materials = list(/datum/material/titanium = 100, /datum/material/iron = 200)
 	build_path = /obj/item/spacecraft_parts/arm
+	category = list("Arms")
 
 /obj/item/spacecraft_parts/thrusters
 	name = "thrusters"
@@ -706,10 +707,10 @@
 /datum/design/board/spacecraft
 	name = "Generic Spacecraft Circuit Board"
 	desc = "Can this mess even be used for anything?"
-	build_type = IMPRINTER
+	build_type = SPACEFAB
 	materials = list(/datum/material/glass = 500)
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
-	category = list("Exosuit Modules")
+	category = list("Control Circuits")
 
 /datum/design/board/spacecraft/control
 	name = "Spacecraft Central Control Circuit"
@@ -741,6 +742,8 @@
 	id = "spacecraft_gps"
 	build_path = /obj/item/circuitboard/spacecraft/gps
 
+//// Research Nodes ////
+
 /datum/techweb_node/spacecraft
 	id = "spacecraft"
 	starting_node = TRUE
@@ -748,7 +751,7 @@
 	description = "Everything you'd ever need to be in space!"
 	design_ids = list("spacecraft_shell", "basic_engine", "spacecraft_thrusters", "spacecraft_arm", "spacecraft_headlights", "spacecraft_internal_module_compartment",
 		"spacecraft_arm_module_compartment", "spacecraft_circuit_compartment", "spacecraft_pilot_seat", "spacecraft_dashboard", "spacecraft_central_control",
-		"spacecraft_module_control", "spacecraft_internal_regulator", "spacecraft_radio", "spacecraft_gps")
+		"spacecraft_module_control", "spacecraft_internal_regulator", "spacecraft_radio", "spacecraft_gps", "spacecraft_fabricator")
 	prereq_ids = list("base")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10)
 	export_price = 10
@@ -767,10 +770,10 @@
 	name = "Basic Engine"
 	desc = "The most basic engine able to power a spacecraft, but hey, it works."
 	id = "basic_engine"
-	build_type = PROTOLATHE
+	build_type = SPACEFAB
 	materials = list(/datum/material/iron = 250)
 	build_path = /obj/item/stock_parts/engine
-	category = list("Stock Parts")
+	category = list("Spacecraft Essentials")
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
@@ -786,15 +789,12 @@
 	name = "Advanced Engine"
 	desc = "An engine capable of powering a spacecraft."
 	id = "adv_engine"
-	build_type = PROTOLATHE
+	build_type = SPACEFAB
 	materials = list(/datum/material/iron = 250)
 	build_path = /obj/item/stock_parts/engine/adv
-	category = list("Stock Parts")
+	category = list("Spacecraft Essentials")
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
-
-/datum/techweb_node/engineering/New()
-	design_ids += list("adv_engine")
 
 // Tier 3 //
 /obj/item/stock_parts/engine/super
@@ -808,15 +808,12 @@
 	name = "Super Engine"
 	desc = "An engine capable of powering a spacecraft."
 	id = "super_engine"
-	build_type = PROTOLATHE
+	build_type = SPACEFAB
 	materials = list(/datum/material/iron = 375)
 	build_path = /obj/item/stock_parts/engine/super
-	category = list("Stock Parts")
+	category = list("Spacecraft Essentials")
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
-
-/datum/techweb_node/high_efficiency/New()
-	design_ids += list("super_engine")
 
 // Tier 4 //
 /obj/item/stock_parts/engine/bluespace
@@ -830,22 +827,18 @@
 	name = "Bluespace Engine"
 	desc = "An engine capable of powering a spacecraft. Now with 100% more bluespace shenanigans!"
 	id = "bluespace_engine"
-	build_type = PROTOLATHE
+	build_type = SPACEFAB
 	materials = list(/datum/material/iron = 500, /datum/material/bluespace = 50)
 	build_path = /obj/item/stock_parts/engine/bluespace
-	category = list("Stock Parts")
+	category = list("Spacecraft Essentials")
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
-
-/datum/techweb_node/micro_bluespace/New()
-	design_ids += list("bluespace_engine")
 
 // Tier 5 //
 /obj/item/stock_parts/engine/quantum
 	name = "quantum engine"
 	desc = "An engine capable of powering a spacecraft. You can faintly hear the screams of all the quantum physicians that died trying to create this masterpiece of quatum technology."
-	icon = 'icons/Fulpicons/quantumcell_fulp.dmi'
-	icon_state = "quantumcap"
+	icon_state = "bluespace_engine"
 	rating = 5
 	custom_materials = list(/datum/material/iron = 750, /datum/material/uranium = 100, /datum/material/diamond = 100, /datum/material/bluespace = 100)
 
@@ -853,12 +846,9 @@
 	name = "Quantum Engine"
 	desc = "An engine capable of powering a spacecraft. You can faintly hear the screams of all the quantum physicians that died trying to create this masterpiece of quatum technology."
 	id = "quantum_engine"
-	build_type = PROTOLATHE
+	build_type = SPACEFAB
 	materials = list(/datum/material/iron = 750, /datum/material/uranium = 100, /datum/material/diamond = 100, /datum/material/bluespace = 100)
 	build_path = /obj/item/stock_parts/engine/quantum
-	category = list("Stock Parts")
+	category = list("Spacecraft Essentials")
 	lathe_time_factor = 0.2
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
-
-/datum/techweb_node/quantum_tech/New()
-	design_ids += list("quantum_engine")
