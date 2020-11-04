@@ -385,6 +385,12 @@
 			"back_key" = TOOL_CROWBAR,
 			"name" = "inner window",
 			"desc" = "The Inner Window is installed loosely."
+		),
+		list(
+			"key" = TOOL_WELDER,
+			"back_key" = TOOL_WRENCH,
+			"name" = "inner window",
+			"desc" = "The Inner Window is secured in place."
 		)
 	)
 
@@ -394,10 +400,10 @@
 			"key" = arm,
 			"config" = RIGHT_ARM,
 			"action" = ITEM_MOVE_INSIDE,
-			"back_key" = TOOL_WRENCH,
+			"back_key" = TOOL_WELDER,
 			"skip_key" = TOOL_MULTITOOL,
 			"name" = RIGHT_ARM+" "+initial(arm.name),
-			"desc" = "The Inner Window is secured firmly in place."
+			"desc" = "The Inner Window is welded firmly in place."
 		),
 		list(
 			"key" = TOOL_WRENCH,
