@@ -75,6 +75,11 @@ SUBSYSTEM_DEF(mapping)
 		++space_levels_so_far
 		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = CROSSLINKED))
 
+	///////// FULP-ONLY STARTS -- Generating the Asteroid Z-Level -- FULP-ONLY STARTS /////////
+	add_asteroid_z_level()
+
+	///////// FULP-ONLY ENDS -- Generating the Asteroid Z-Level -- FULP-ONLY ENDS /////////
+
 	// Pick a random away mission.
 	if(CONFIG_GET(flag/roundstart_away))
 		createRandomZlevel()

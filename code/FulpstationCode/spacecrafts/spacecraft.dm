@@ -141,7 +141,7 @@
 		if(A.configuration == LEFT_ARM)
 			left_arm = A
 	for(var/obj/item/spacecraft_parts/internal_module/module in contents)
-		if(length(module.specialization) != 0 & length(specialized_modules) < 2 & is_specialized == TRUE)
+		if(length(module.specialization) != 0 && length(specialized_modules) < 2 && is_specialized == TRUE)
 			specialized_modules += list(module)
 		else
 			general_modules += list(module)
