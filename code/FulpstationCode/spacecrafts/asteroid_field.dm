@@ -65,9 +65,9 @@
 	. = ..()
 	radius = rand(2, 9) // Should be a decent size, right?
 	shape_generator = new shape_generatorType()
-	shape_generator.generate_roundish(generated_turf, x, y, z, radius)
-	if(radius > 2)
-		INVOKE_ASYNC(shape_generator, /datum/shape_generator/.proc/flood_fill, src, generated_on, generated_turf)
+	shape_generator.generate_roundish(generated_on, generated_turf, x, y, z, radius)
+	// if(radius > 2)
+	// 	INVOKE_ASYNC(shape_generator, /datum/shape_generator/.proc/flood_fill, src, generated_on, generated_turf)
 	// shape_generator.flood_fill(src, generated_on, generated_turf)
 
 /datum/map_generator_module/scarce_layer/asteroid_generators
@@ -87,7 +87,7 @@
 // We use vertices here to create a round-ish shape, that will then get filled with turfs specified in turfpath.matrix
 // Perfect for creating asteroids!
 // There's a lot of min() and max() to avoid divisions by 0.
-/datum/shape_generator/proc/generate_roundish(turf/turfpath, centerX, centerY, centerZ, max_radius)
+/datum/shape_generator/proc/generate_roundish(turf/target_turfpath, turf/new_turfpath, centerX, centerY, centerZ, max_radius)
 	var/average_vertex_amount = rand(min(5, max_radius), max(5, max_radius))
 	var/max_angle_delta = FLOOR(FULL_CIRCLE_DEGREES / average_vertex_amount, 1)
 	var/min_angle_delta = FLOOR(FULL_CIRCLE_DEGREES / (1.5 * average_vertex_amount), 1)
@@ -119,10 +119,13 @@
 	// Time to add turf to each vertex and store those turfs in a list
 	for(var/vertex in real_vertex_coordinates)
 		var/turf/vertex_turf = locate(vertex["x"], vertex["y"], vertex["z"])
-		vertex_turf.ChangeTurf(turfpath)
+		if(!istype(vertex_turf, new_turfpath))
+			vertex_turf.ChangeTurf(new_turfpath)
 		vertex_turfs += vertex_turf
 
-	// Time to add turf between each vertex
+	/// Time to add turf between each vertex, let's remember those border steps too
+	var/border_turfs = vertex_turfs /// We start by adding the vertices
+
 	for(var/i in 1 to length(vertex_turfs))
 		var/turf/target
 		if(i == length(vertex_turfs)) // If it's the last vertex, connect it with the first.
@@ -134,117 +137,201 @@
 		// Time go go through each turf between two vertices
 		while(not_reached_vertex)
 			var/turf/next_step = get_step_towards(current_step, target)
-			next_step.ChangeTurf(turfpath)
+			if(!istype(next_step, new_turfpath))
+				next_step.ChangeTurf(new_turfpath)
 			if(next_step == target)
 				not_reached_vertex = FALSE
 			else
 				current_step = next_step
+				border_turfs += next_step
+
+	// Now, time to scan the turfs inside of the shape.
+	var/list/border_turfs_slices = list()
+	for(var/turf/border_turf in border_turfs)
+		border_turfs_slices["[border_turf.x]"] += list(border_turf)
+
+	for(var/key in border_turfs_slices)
+		var/list/slice = border_turfs_slices[key]
+		if(length(slice) == 1)
+			continue
+		slice = sortTim(slice, /proc/cmp_turf_y, FALSE)
+		var/turf/lowest_turf_from_slice = slice[1]
+		var/max_range = centerY - lowest_turf_from_slice.y + max_radius - rand(1, 2)
+		var/current_distance = 0
+		// If we've got a cave-in (or multiple), let's alternate between filling and not.
+		if(length(slice) % 2 == 0)
+			var/replace = TRUE
+			var/turf/current_turf = slice[1]
+			while(current_turf != slice[length(slice)] && current_distance <= max_range)
+				var/turf/next_turf = get_step(current_turf, NORTH)
+				if(istype(next_turf, new_turfpath) && (next_turf in slice))
+					replace = !replace
+				if(istype(next_turf, target_turfpath))
+					if(replace == TRUE)
+						next_turf.ChangeTurf(new_turfpath)
+				current_turf = next_turf
+				current_distance += 1
+		// Else fuck that we're just making a line, smart enough
+		else
+			var/turf/current_turf = slice[1]
+			while(current_turf != slice[length(slice)] && current_distance < max_range)
+				var/turf/next_turf = get_step(current_turf, NORTH)
+				if(istype(next_turf, target_turfpath))
+					next_turf.ChangeTurf(new_turfpath)
+				current_turf = next_turf
+				current_distance += 1
 
 
-// Flood-fill, as explained by pseudo-code.
-// Flood-fill (node, target-color, replacement-color):
-//  1. If target-color is equal to replacement-color, return.
-//  2. If color of node is not equal to target-color, return.
-//  3. Set Q to the empty queue.
-//  4. Add node to Q.
-//  5. For each element N of Q:
-//  6.     Set w and e equal to N.
-//  7.     Move w to the west until the color of the node to the west of w no longer matches target-color.
-//  8.     Move e to the east until the color of the node to the east of e no longer matches target-color.
-//  9.     For each node n between w and e:
-// 10.         Set the color of n to replacement-color.
-// 11.         If the color of the node to the north of n is target-color, add that node to Q.
-// 12.         If the color of the node to the south of n is target-color, add that node to Q.
-// 13. Continue looping until Q is exhausted.
-// 14. Return.
-/datum/shape_generator/proc/flood_fill(turf/node_turf, target_turf_path, new_turf_path, list/queue=list())
-	return
-	// target and new turf paths being equal would just cause a runtime. Runtime bad.
-	if(target_turf_path == new_turf_path)
-		return
-	// If the node_turf (so the starting point) doesn't match target_turf_path or the generator turf path,
-	// get out of there while you still can.
-	if(!istype(node_turf, target_turf_path) && !istype(node_turf, /turf/generator))
-		return
-	if(length(queue) == 0 && !(node_turf in queue))
-		queue += node_turf
-	while(length(queue) > 0)
-		// We start by finding the north-most and south-most turfs that are the same type as target_turf_path
-		for(var/turf/queue_turf in queue)
-			// while(istype(north_turf, target_turf_path))
-			// 	var/turf/new_turf = get_step(north_turf, NORTH)
-			// 	if(istype(new_turf, target_turf_path))
-			// 		north_turf = new_turf
-			// 	else
-			// 		break
-			// while(istype(south_turf, target_turf_path))
-			// 	var/turf/new_turf = get_step(south_turf, SOUTH)
-			// 	if(istype(new_turf, target_turf_path))
-			// 		south_turf = new_turf
-			// 	else
-			// 		break
-			smart_add_to_list(already_iterated, replace_turf_in_dir(queue_turf, target_turf_path, new_turf_path, NORTH, queue))
-			smart_add_to_list(already_iterated, replace_turf_in_dir(queue_turf, target_turf_path, new_turf_path, SOUTH, queue))
 
-			if(!(queue_turf in already_iterated))
-				already_iterated += queue_turf
-			// var/not_reached_target = TRUE
-			// var/turf/current_step = north_turf
-			// // Time to go through each turf between the north and the south turfs from before and add turf to them,
-			// // then add their adjacent turfs to queue.
-			// while(not_reached_target)
-			// 	var/turf/next_step = get_step_towards(current_step, south_turf)
 
-			// 	current_step.ChangeTurf(replacement_turf_path)
-			// 	// We need to avoid having turfs more than once in the queue, otherwise this will never end.
-			// 	add_step_to_queue(current_step, queue, EAST)
-			// 	add_step_to_queue(current_step, queue, WEST)
-			// 	if(isnull(next_step))
-			// 		not_reached_target = FALSE
-			// 	if(!(current_step in already_iterated))
-			// 		already_iterated += current_step
-			// 	if(next_step == south_turf)
-			// 		add_step_to_queue(next_step, queue, EAST)
-			// 		add_step_to_queue(next_step, queue, WEST)
-			// 		next_step.ChangeTurf(replacement_turf_path)
-			// 		if(!(next_step in already_iterated))
-			// 			already_iterated += next_step
-			// 		not_reached_target = FALSE
-			// 	else
-			// 		current_step = next_step
+// /// To allow for ordering a list of turfs based on the given axis
+// /proc/cmp_turf_axis(turf/a, turf/b, axis)
+// 	switch(axis)
+// 		if("x")
+// 			return a.x - b.x
+// 		if("y")
+// 			return a.y - b.y
+// 		if("z")
+// 			return a.z - b.z
 
-		// At the very end, we remove all the turfs that were already iterated previously from queue, to avoid runtimes. Runtimes bad
-		log_world("The already_iterated list is now [length(already_iterated)] elements long.")
-		queue -= already_iterated
-		log_world("The queue list is now [length(queue)] elements long.")
+/// To allow for ordering a list of turfs based on the given axis
+/proc/cmp_turf_x(turf/a, turf/b)
+	return a.x - b.x
 
-///* Going in a dir, checking if the new turf is matching the target turf type, if so, change it to the new turf type and keep going,  ///
-//   if not, just end there.																										  *///
-/datum/shape_generator/proc/replace_turf_in_dir(turf/current_turf, target_turf_path, new_turf_path, dir, list/queue, list/already_iterated_list=already_iterated)
-	var/turf/new_turf = get_step(current_turf, dir)
-	already_iterated_list += new_turf
-	var/isFirstTime = TRUE
-	while(!isnull(new_turf) && istype(new_turf, target_turf_path))
-		add_step_to_queue(current_turf, queue, EAST)
-		add_step_to_queue(current_turf, queue, WEST)
-		if(!isnull(current_turf) && istype(current_turf, target_turf_path))
-			current_turf.ChangeTurf(new_turf_path)
-		already_iterated_list += current_turf
-		current_turf = new_turf
-		new_turf = get_step(current_turf, dir)
-	return already_iterated_list
+/proc/cmp_turf_y(turf/a, turf/b)
+	return a.y - b.y
 
-// Adding steps to the queue for the flood_fill() proc
-/datum/shape_generator/proc/add_step_to_queue(turf/starting_turf, list/queue, dir, list/already_iterated_list=already_iterated, turf_type=/turf/open/space)
-	var/turf/next_turf = get_step(starting_turf, dir)
-	if(!(next_turf in queue) && !(next_turf in already_iterated_list) && istype(starting_turf, turf_type))
-		queue += next_turf
+/proc/cmp_turf_z(turf/a, turf/b)
+	return a.z - b.z
 
-// This proc tries to add the elements from second_list into first_list, while making sure they're not already apart of it.
-/datum/shape_generator/proc/smart_add_to_list(list/first_list, list/second_list)
-	for(var/elem in second_list)
-		if(!(elem in first_list))
-			first_list += elem
+/*  Check for the angle from the middle.
+    	if the angle is in [0; 180[
+			scan(SOUTH, x, y, z)
+		elif the angle is between [180; 360[
+			scan(NORTH, x, y, z)
+
+	// x y z are relative to the generator turf
+	scan(dir, x, y, z):
+		var/amount_matching = 0
+		var/turf_type =
+		for(var/)
+
+
+
+
+*/
+
+
+
+// /datum/shape_generator/proc/scan_line_for_type(turf/startTurf, dir, max_distance, list/border_turfs)
+
+
+
+
+
+// // Flood-fill, as explained by pseudo-code.
+// // Flood-fill (node, target-color, replacement-color):
+// //  1. If target-color is equal to replacement-color, return.
+// //  2. If color of node is not equal to target-color, return.
+// //  3. Set Q to the empty queue.
+// //  4. Add node to Q.
+// //  5. For each element N of Q:
+// //  6.     Set w and e equal to N.
+// //  7.     Move w to the west until the color of the node to the west of w no longer matches target-color.
+// //  8.     Move e to the east until the color of the node to the east of e no longer matches target-color.
+// //  9.     For each node n between w and e:
+// // 10.         Set the color of n to replacement-color.
+// // 11.         If the color of the node to the north of n is target-color, add that node to Q.
+// // 12.         If the color of the node to the south of n is target-color, add that node to Q.
+// // 13. Continue looping until Q is exhausted.
+// // 14. Return.
+// /datum/shape_generator/proc/flood_fill(turf/node_turf, target_turf_path, new_turf_path, list/queue=list())
+// 	// target and new turf paths being equal would just cause a runtime. Runtime bad.
+// 	if(target_turf_path == new_turf_path)
+// 		return
+// 	// If the node_turf (so the starting point) doesn't match target_turf_path or the generator turf path,
+// 	// get out of there while you still can.
+// 	if(!istype(node_turf, target_turf_path) && !istype(node_turf, /turf/generator))
+// 		return
+// 	if(length(queue) == 0 && !(node_turf in queue))
+// 		queue += node_turf
+// 	while(length(queue) > 0)
+// 		// We start by finding the north-most and south-most turfs that are the same type as target_turf_path
+// 		for(var/turf/queue_turf in queue)
+// 			// while(istype(north_turf, target_turf_path))
+// 			// 	var/turf/new_turf = get_step(north_turf, NORTH)
+// 			// 	if(istype(new_turf, target_turf_path))
+// 			// 		north_turf = new_turf
+// 			// 	else
+// 			// 		break
+// 			// while(istype(south_turf, target_turf_path))
+// 			// 	var/turf/new_turf = get_step(south_turf, SOUTH)
+// 			// 	if(istype(new_turf, target_turf_path))
+// 			// 		south_turf = new_turf
+// 			// 	else
+// 			// 		break
+// 			smart_add_to_list(already_iterated, replace_turf_in_dir(queue_turf, target_turf_path, new_turf_path, NORTH, queue))
+// 			smart_add_to_list(already_iterated, replace_turf_in_dir(queue_turf, target_turf_path, new_turf_path, SOUTH, queue))
+
+// 			if(!(queue_turf in already_iterated))
+// 				already_iterated += queue_turf
+// 			// var/not_reached_target = TRUE
+// 			// var/turf/current_step = north_turf
+// 			// // Time to go through each turf between the north and the south turfs from before and add turf to them,
+// 			// // then add their adjacent turfs to queue.
+// 			// while(not_reached_target)
+// 			// 	var/turf/next_step = get_step_towards(current_step, south_turf)
+
+// 			// 	current_step.ChangeTurf(replacement_turf_path)
+// 			// 	// We need to avoid having turfs more than once in the queue, otherwise this will never end.
+// 			// 	add_step_to_queue(current_step, queue, EAST)
+// 			// 	add_step_to_queue(current_step, queue, WEST)
+// 			// 	if(isnull(next_step))
+// 			// 		not_reached_target = FALSE
+// 			// 	if(!(current_step in already_iterated))
+// 			// 		already_iterated += current_step
+// 			// 	if(next_step == south_turf)
+// 			// 		add_step_to_queue(next_step, queue, EAST)
+// 			// 		add_step_to_queue(next_step, queue, WEST)
+// 			// 		next_step.ChangeTurf(replacement_turf_path)
+// 			// 		if(!(next_step in already_iterated))
+// 			// 			already_iterated += next_step
+// 			// 		not_reached_target = FALSE
+// 			// 	else
+// 			// 		current_step = next_step
+
+// 		// At the very end, we remove all the turfs that were already iterated previously from queue, to avoid runtimes. Runtimes bad
+// 		log_world("The already_iterated list is now [length(already_iterated)] elements long.")
+// 		queue -= already_iterated
+// 		log_world("The queue list is now [length(queue)] elements long.")
+
+// ///* Going in a dir, checking if the new turf is matching the target turf type, if so, change it to the new turf type and keep going,  ///
+// //   if not, just end there.																										  *///
+// /datum/shape_generator/proc/replace_turf_in_dir(turf/current_turf, target_turf_path, new_turf_path, dir, list/queue, list/already_iterated_list=already_iterated)
+// 	var/turf/new_turf = get_step(current_turf, dir)
+// 	already_iterated_list += new_turf
+// 	var/isFirstTime = TRUE
+// 	while(!isnull(new_turf) && istype(new_turf, target_turf_path))
+// 		add_step_to_queue(current_turf, queue, EAST)
+// 		add_step_to_queue(current_turf, queue, WEST)
+// 		if(!isnull(current_turf) && istype(current_turf, target_turf_path))
+// 			current_turf.ChangeTurf(new_turf_path)
+// 		already_iterated_list += current_turf
+// 		current_turf = new_turf
+// 		new_turf = get_step(current_turf, dir)
+// 	return already_iterated_list
+
+// // Adding steps to the queue for the flood_fill() proc
+// /datum/shape_generator/proc/add_step_to_queue(turf/starting_turf, list/queue, dir, list/already_iterated_list=already_iterated, turf_type=/turf/open/space)
+// 	var/turf/next_turf = get_step(starting_turf, dir)
+// 	if(!(next_turf in queue) && !(next_turf in already_iterated_list) && istype(starting_turf, turf_type))
+// 		queue += next_turf
+
+// // This proc tries to add the elements from second_list into first_list, while making sure they're not already apart of it.
+// /datum/shape_generator/proc/smart_add_to_list(list/first_list, list/second_list)
+// 	for(var/elem in second_list)
+// 		if(!(elem in first_list))
+// 			first_list += elem
 
 #undef CLUSTER_CHECK_NONE
 #undef INIT_ANNOUNCE
