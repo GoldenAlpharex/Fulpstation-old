@@ -6,8 +6,8 @@
 #define INIT_ANNOUNCE(X) to_chat(world, "<span class='boldannounce'>[X]</span>"); log_world(X)
 
 /datum/controller/subsystem/mapping/proc/add_asteroid_z_level()
+	var/start_time = REALTIMEOFDAY
 	var/datum/space_level/asteroid_level = add_new_zlevel("Asteroid Field", traits = ZTRAIT_ASTEROID_FIELD)
-	INIT_ANNOUNCE("The Asteroid Field is now generated at z = [asteroid_level.z_value].")
 
 	// These are the default parameters handed into the shape generator procs.
 	var/new_turf = /turf/closed/mineral
@@ -36,6 +36,7 @@
 	for(var/turf/T in asteroid_generators)
 		shape_generator.generate_roundish(base_turf, new_turf, T.x, T.y, T.z, rand(2, 9))
 
+	INIT_ANNOUNCE("Generated Asteroid Field in [(REALTIMEOFDAY - start_time)/10] seconds!")
 	// var/mapGeneratorType = /datum/map_generator/asteroid_scarce
 	// var/datum/map_generator/mapGenerator
 
