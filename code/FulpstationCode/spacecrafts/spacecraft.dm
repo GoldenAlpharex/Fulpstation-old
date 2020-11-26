@@ -18,6 +18,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	default_driver_move = FALSE
 	force = 5
+	max_integrity = 250 // That's just the default, will probably be changed later.
 	var/enclosed = TRUE //Just in case there's ever an open-concept spacecraft.
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	var/use_internal_tank = TRUE
@@ -44,6 +45,19 @@
 	var/lights_range = 6
 	var/lights_power = 2
 	var/lights_energy_drain = 5 //Basic lights energy drain when they're turned on.
+
+	var/is_there_a_shield_filter = FALSE // For ease of use in shield filter handling
+	var/has_shield = FALSE // By default.
+	var/shield_active = TRUE
+	var/max_shield_points = 0
+	var/current_shield_points = 0 // Default, duh.
+	var/list/shields = list()
+	var/shield_idle_power_drain = 0
+	var/shield_regen_power_drain = 0
+	var/shield_regen_rate = 0
+	var/shield_cooldown // Will be changed by a timer in process
+	var/shield_cooldown_modifier = 1
+
 	var/is_specialized = FALSE //By default, spacecrafts will be of general purpose.
 	var/max_specialized_slots = 2 //Maximum amount of specialized modules you can have in your specialized compartment.
 	var/speed_modifier = 2 // To keep track of the speed modifier of the spacecraft.
@@ -73,6 +87,7 @@
 	add_ore_scanner()
 	add_right_arm()
 	add_left_arm()
+	add_shield()
 	set_spacecraft_overlay()
 	START_PROCESSING(SSobj, src)
 
@@ -145,6 +160,9 @@
 			specialized_modules += list(module)
 		else
 			general_modules += list(module)
+		if(istype(module, /obj/item/spacecraft_parts/internal_module/shield))
+			shields += list(module)
+			has_shield = TRUE
 	update_part_values()
 
 /obj/vehicle/sealed/spacecraft/proc/update_part_values()
@@ -161,6 +179,24 @@
 			regular_move_delay = 1.5 - 0.3 * engine.rating
 		if(engine.rating == 5)
 			regular_move_delay = 0.1
+	if(has_shield)
+		var/temp_max_shield_points = 0
+		var/temp_shield_idle_power_drain = 0
+		var/temp_shield_regen_power_drain = 0
+		var/temp_shield_regen_rate = 0
+		var/temp_shield_cooldown_modifier = 1
+		for(var/obj/item/spacecraft_parts/internal_module/shield/shield in shields)
+			temp_max_shield_points += shield.shield_points
+			temp_shield_idle_power_drain += shield.idle_power_drain
+			temp_shield_regen_power_drain += shield.recharge_power_drain
+			temp_shield_regen_rate += shield.recharge_rate
+			temp_shield_cooldown_modifier *= shield.cooldown_modifier
+		max_shield_points = temp_max_shield_points
+		shield_idle_power_drain = temp_shield_idle_power_drain
+		shield_regen_power_drain = temp_shield_regen_power_drain
+		shield_regen_rate = temp_shield_regen_rate
+		shield_cooldown_modifier = temp_shield_cooldown_modifier
+
 
 /obj/vehicle/sealed/spacecraft/proc/add_airtank()
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
@@ -274,6 +310,16 @@
 		orescanner = new /obj/item/t_scanner/adv_mining_scanner(src)
 
 
+/obj/vehicle/sealed/spacecraft/proc/add_shield(obj/item/spacecraft_parts/internal_module/shield/shield=null)
+	QDEL_NULL(shields)
+	if(shield)
+		shield.forceMove(src)
+		shields += list(shield)
+	else
+		shields += list(new /obj/item/spacecraft_parts/internal_module/shield(src))
+	has_shield = TRUE
+
+
 ///This should happen every two or so seconds.
 /obj/vehicle/sealed/spacecraft/process()
 	var/internal_temp_regulation = 1
@@ -325,8 +371,21 @@
 					else
 						occupant.throw_alert("charge", /obj/screen/alert/emptycell)            // Figure a way to make this work later.
 
+	// Shield handling
+	if(has_shield && shield_active)
+		if(!cell && cell.charge <= 0)
+			shield_active = !shield_active
+		else
+			if(current_shield_points < max_shield_points && shield_cooldown == null)
+				//Maybe add a way to stop this manually, so you have shields but they don't recharge?
+				use_power(shield_regen_power_drain)
+				current_shield_points = clamp(current_shield_points + shield_regen_rate, 0, max_shield_points) // We don't want to go past the max.matrix
+			else
+				use_power(shield_idle_power_drain)
 
+	handle_shield_filter()
 
+	// Lights handling
 	if(lights)
 		if(!scanmod)
 			lights = FALSE
@@ -335,6 +394,43 @@
 			lights = FALSE
 			return
 		use_power(lights_energy_drain)
+
+
+/obj/vehicle/sealed/spacecraft/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
+	if(has_shield && current_shield_points > 0)
+		if(current_shield_points < damage_amount)
+			var/new_damage_amount = damage_amount - current_shield_points
+			current_shield_points = 0
+			take_damage(new_damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
+		else
+			current_shield_points -= damage_amount
+		if(current_shield_points <= 0)
+			shield_cooldown = addtimer(shield_cooldown_modifier * 2.5 SECONDS) // HAS TO BE TESTED AND BALANCED!!!!!!!
+			visible_message("[src.name]'s shields have depleted!")
+			handle_shield_filter()
+	else
+		. = ..()
+
+
+/obj/vehicle/sealed/spacecraft/proc/handle_shield_filter()
+	var/are_shields_on = FALSE
+	if(shield_cooldown != null)
+		are_shields_on = FALSE
+	else
+		if(!shield_active)
+			are_shields_on = FALSE
+		else
+			are_shields_on = TRUE
+
+	if(are_shields_on)
+		if(!is_there_a_shield_filter)
+			src.add_filter("shield", 2, list("type" = "color", "color" = "#b4e1ffff", "flags" = KEEP_TOGETHER))
+			is_there_a_shield_filter = TRUE
+	else
+		if(is_there_a_shield_filter)
+			src.remove_filter("shield")
+			is_there_a_shield_filter = FALSE
+
 
 /obj/vehicle/sealed/spacecraft/spacepod
 	name = "space pod"
@@ -625,6 +721,17 @@
 	build_path = /obj/item/spacecraft_parts/arm
 	category = list("Arms")
 
+/obj/item/spacecraft_parts/arm/weapon
+	name = "weapon arm"
+	desc = "For all those space thugs in need of a beating."
+	var/energy_drain = 50
+
+/datum/design/spacecraft_parts/arm/laser
+	name = "Spacecraft Laser Arm"
+	desc = "For all those space thugs in need of a beating."
+	id = "spacecraft_laser_arm"
+	materials = list(/datum/material/titanium = 100, /datum/material/iron = 200, /datum/material/bluespace = 10)
+
 //Template for the spacecraft internal modules.
 /obj/item/spacecraft_parts/internal_module
 	name = "internal module"
@@ -649,6 +756,21 @@
 	name = "Internal Ore Scanner Module"
 	desc = "A spacecraft-grade ore scanner."
 	materials = list(/datum/material/iron = 200)
+
+/obj/item/spacecraft_parts/internal_module/shield
+	name = "shield module"
+	desc = "For when you don't want to scratch the paint."
+	specialization = list("combat")
+	var/shield_points = 75
+	var/idle_power_drain = 5
+	var/recharge_power_drain = 25
+	var/recharge_rate = 1 // How many shield points are gained every shield recharge cycle. Additive.
+	var/cooldown_modifier = 1 // If it's faster or slower to start recharging shield points after depleting. Multiplicative.
+
+/datum/design/spacecraft_parts/internal_module/shield
+	name = "Shield Module"
+	desc = "For when you don't want to scratch the paint."
+	materials = list(/datum/material/titanium = 200, /datum/material/gold = 100)
 
 /obj/item/spacecraft_parts/thrusters
 	name = "thrusters"
